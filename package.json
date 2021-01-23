@@ -1,0 +1,31 @@
+{
+    "name": "pack-format",
+    "version": "1.0.0",
+    "description": "Returns the pack_format of any Minecraft version",
+    "scripts": {
+        "test": "node test"
+    },
+    "keywords": [
+        "minecraft",
+        "resourcepack",
+        "datapack",
+        "pack_format"
+    ],
+    "files": [
+        "index.js"
+    ],
+    "main": "index.js",
+    "bin": {
+        "pack-format": "index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Nixinova/pack-format.git"
+    },
+    "author": "Nixinova (https://nixinova.com)",
+    "bugs": {
+        "url": "https://github.com/Nixinova/pack-format/issues"
+    },
+    "license": "ISC",
+    "dependencies": {}
+}
