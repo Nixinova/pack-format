@@ -1,7 +1,7 @@
 {
     "name": "pack-format",
-    "version": "1.0.0",
-    "description": "Returns the pack_format of any Minecraft version",
+    "version": "1.0.1",
+    "description": "Returns the pack_format of any Minecraft version, including snapshots",
     "scripts": {
         "test": "node test"
     },

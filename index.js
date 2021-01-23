@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 class Snapshot {
     constructor(version) { this.version = version }
     getYear() { return parseInt(this.version.replace(/^(\d\d).+$/, '$1')) }
@@ -7,6 +8,7 @@ class Snapshot {
 
 function getPackFormat(version) {
     if (!version) return
+    version = version.toString();
 
     // Snapshot //
 
