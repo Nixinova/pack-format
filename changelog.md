@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+*2021-01-23*
+- Fixed the command-line tool overflowing into dependencies.
+- Fixed a crash occurring when using `pack-format --version`.
+
 ## 1.0.1
 *2021-01-23*
 - Fixed command-line usage not working.
