@@ -21,13 +21,13 @@ function getPackFormat(version) {
             '17w47b': 3,
             '19w46b': 4,
             '20w30a': 5,
-            '20w45a': 6,
+            '20w45a': 6, // datapack
             '22w00a': 7, // current
         }
         const snapshot = new Snapshot(version)
 
         for (let snap in lastSnapshots) {
-            if (snapshot.getID() < (new Snapshot(snap)).getID()) {
+            if (snapshot.getID() <= (new Snapshot(snap)).getID()) {
                 return lastSnapshots[snap]
             }
         }
@@ -37,6 +37,7 @@ function getPackFormat(version) {
     // Release //
 
     version = version.toLowerCase().replace(' pre-release ', '-pre').replace(' release candidate ', '-rc')
+
     if (version.includes('-')) {
         if (version.includes('1.16.2-pre')) return 5
         else version = version.replace(/-.+$/, '')

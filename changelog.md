@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6
+*2021-21-09*
+- Fixed pack format ranges being exclusive.
+
 ## 1.0.5
 *2021-02-09*
 - Added flag aliases `h` and `v` for `--help` and `--version` respectively.
