@@ -29,7 +29,7 @@ packFormat('1.16.2-pre1') // 5
 
 `pack-format <version>`
 
-```cmd
+```sh
 > pack-format 1.14.4
 Pack format of 1.14.4 is 4
 > pack-format 1.16.2-pre1

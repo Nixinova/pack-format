@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-const cli = require('./cli.js')
-
 class Snapshot {
     constructor(version) { this.version = version }
     getYear() { return parseInt(this.version.replace(/^(\d\d).+$/, '$1')) }
@@ -61,10 +59,6 @@ function getPackFormat(version) {
             if (matchExact || matchMinor) return parseInt(i)
         }
     }
-}
-
-if (require.main === module) {
-    cli()
 }
 
 module.exports = getPackFormat

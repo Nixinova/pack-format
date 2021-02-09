@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5
+*2021-02-09*
+- Added flag aliases `h` and `v` for `--help` and `--version` respectively.
+- Fixed a crash occurring when retrieving a pack format via the command-line.
+
 ## 1.0.4
 *2021-02-09*
 - Fixed command-line usage not working.
