@@ -1,6 +1,6 @@
 {
     "name": "pack-format",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Returns the pack_format of any Minecraft version, including snapshots",
     "scripts": {
         "test": "node test"
@@ -11,12 +11,9 @@
         "datapack",
         "pack_format"
     ],
-    "files": [
-        "index.js"
-    ],
     "main": "index.js",
     "bin": {
-        "pack-format": "index.js"
+        "pack-format": "cli.js"
     },
     "repository": {
         "type": "git",

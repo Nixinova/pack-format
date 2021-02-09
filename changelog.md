@@ -1,9 +1,14 @@
 # Changelog
 
+## 1.0.3
+*2021-02-09*
+- Added a help message, given by using `pack-format` without any arguments or by using flag `--help`/`-h`.
+- Refactored command-line code and tests.
+
 ## 1.0.2
 *2021-01-23*
-- Fixed the command-line tool overflowing into dependencies.
-- Fixed a crash occurring when using `pack-format --version`.
+- Fixed the command-line tool overflowing into dependents.
+- Fixed a crash occurring when using flag `--version`/`-v`.
 
 ## 1.0.1
 *2021-01-23*
