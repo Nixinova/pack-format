@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+*2021-02-09*
+- Fixed command-line usage not working.
+
 ## 1.0.3
 *2021-02-09*
 - Added a help message, given by using `pack-format` without any arguments or by using flag `--help`/`-h`.
