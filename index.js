@@ -7,31 +7,31 @@ class Snapshot {
     getID() { return (this.getYear() - 10) * 52 + this.getWeek() }
 }
 
-function getPackFormat(version) {
+function getPackFormat(version, type) {
     if (!version) return
     version = version.toString()
 
     // Snapshot //
 
     if (/^\d\dw\d\d\w$/.test(version)) {
-        const lastSnapshots = {
-            '13w23b': undefined,
-            '14w34d': 1,
-            '16w21b': 2,
-            '17w47b': 3,
-            '19w46b': 4,
-            '20w30a': 5,
-            '20w45a': 6, // datapack
-            '22w00a': 7, // current
+        const startSnapshots = {
+            '13w24a': 1,
+            '15w31a': 2,
+            '16w32a': 3,
+            '17w48a': 4,
+            '20w06a': 5,
+            '20w45a': { resource: 7, data: 6 },
+            '20w46a': 7,
         }
         const snapshot = new Snapshot(version)
 
-        for (let snap in lastSnapshots) {
-            if (snapshot.getID() <= (new Snapshot(snap)).getID()) {
-                return lastSnapshots[snap]
+        let ver;
+        for (let snap in startSnapshots) {
+            if (snapshot.getID() >= (new Snapshot(snap)).getID()) {
+                ver = startSnapshots[snap];
             }
         }
-        return
+        return ['number','undefined'].includes(typeof ver) ? ver : ver[type || 'resource'];
     }
 
     // Release //

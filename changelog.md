@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+*2021-02-13*
+- Added argument `type` to Node usage; valid values are `'data'` and `'resource'` for retrieving the respective pack format for certain versions.
+- Added command-line flags `--data` (alias `-d`/`d`) and `--resource` (alias `-r`/`r`) to implement the above `type` usage.
+- Removed speculative hardcoded end of the current pack format.
+
 ## 1.0.6
 *2021-21-09*
 - Fixed pack format ranges being exclusive.
