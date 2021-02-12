@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+*2021-02-13*
+- Fixed command-line usage not parsing pre-release and release candidate versions.
+
 ## 1.1.0
 *2021-02-13*
 - Added argument `type` to Node usage; valid values are `'data'` and `'resource'` for retrieving the respective pack format for certain versions.
