@@ -16,13 +16,13 @@ if (arg(1) && !arg(1).includes('h'))
         console.log(`Pack format of ${arg(1)} is ${getPackFormat(arg(1))}`)
 else {
     const indent = n => ' '.repeat(n * 4)
-    const log = (arg, desc) => {
+    const log = (arg, ...desc) => {
         console.log(`\n${indent(2)}pack-format ${arg}`)
-        for (text of desc) console.log(indent(3) + text)
+        for (i in desc) console.log(indent(+i + 3) + desc[i])
     }
     console.log(`\n${indent(1)}pack-format arguments:`)
-    log('<version>', ['Retrieve the pack format of any Minecraft version.', indent(1) + 'Defaults to resource pack format when applicable.'])
-    log('(--data|-d) <version>', ['Retrieve the data pack format in particular when applicable.'])
-    log('(--resource|-r) <version>', ['Retrieve the resource pack format in particular when applicable.'])
+    log('<version>', 'Retrieve the pack format of any Minecraft version.', 'Defaults to resource pack format when applicable.')
+    log('(--data|-d) <version>', 'Retrieve the data pack format in particular when applicable.')
+    log('(--resource|-r) <version>', 'Retrieve the resource pack format in particular when applicable.')
 }
 

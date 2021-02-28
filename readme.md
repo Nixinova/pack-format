@@ -4,7 +4,7 @@
 
 # pack-format
 
-pack-format is a Node.js tool for retrieving the `pack_format` of any Minecraft version, including snapshots.
+pack-format is a tool for retrieving the `pack_format` of any Minecraft version, including snapshots.
 
 ## About
 
@@ -15,7 +15,7 @@ It was added in Minecraft version 1.6, and as such using this tool on any versio
 
 pack-format is available on [npm](https://www.npmjs.com/package/pack-format).
 
-To install pack-format, open your command prompt and type `npm install pack-format` to use for a Node.js project, or `npm install -g pack-format` to use from the command line.
+To install pack-format, open the command line and type `npm install pack-format` to use for a Node.js project, or `npm install -g pack-format` to use from the command line.
 
 ## Usage
 
@@ -39,6 +39,6 @@ Pack format of 1.14.4 is 4
 > pack-format --resource 1.16.2-pre1
 Resource pack format of 1.16.2-pre1 is 5
 
-> pack-format --data 20w30a
+> pack-format --data 20w45a
 Data pack format of 20w45a is 6
 ```

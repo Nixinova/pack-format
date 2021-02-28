@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.2
+*2021-02-28*
+- Changed coercing of version input to be more lenient.
+- Fixed major releases returning the pack format of their last minor release.
+
 ## 1.1.1
 *2021-02-13*
 - Fixed command-line usage not parsing pre-release and release candidate versions.
@@ -11,7 +16,7 @@
 - Removed speculative hardcoded end of the current pack format.
 
 ## 1.0.6
-*2021-21-09*
+*2021-02-09*
 - Fixed pack format ranges being exclusive.
 
 ## 1.0.5

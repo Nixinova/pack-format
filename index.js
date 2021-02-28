@@ -2,14 +2,14 @@
 
 class Snapshot {
     constructor(version) { this.version = version }
-    getYear() { return parseInt(this.version.replace(/^(\d\d).+$/, '$1')) }
-    getWeek() { return parseInt(this.version.replace(/^\d\dw(\d\d)\w$/, '$1')) }
-    getID() { return (this.getYear() - 10) * 52 + this.getWeek() }
+    get year() { return parseInt(this.version.replace(/^(\d\d).+$/, '$1')) }
+    get week() { return parseInt(this.version.replace(/^\d\dw(\d\d)\w$/, '$1')) }
+    get id() { return (this.year - 10) * 52 + this.week }
 }
 
 function getPackFormat(version, type) {
     if (!version) return
-    version = version.toString()
+    version = version.toString().toLowerCase().trim()
 
     // Snapshot //
 
@@ -25,18 +25,18 @@ function getPackFormat(version, type) {
         }
         const snapshot = new Snapshot(version)
 
-        let ver;
+        let ver
         for (let snap in startSnapshots) {
-            if (snapshot.getID() >= (new Snapshot(snap)).getID()) {
-                ver = startSnapshots[snap];
+            if (snapshot.id >= (new Snapshot(snap)).id) {
+                ver = startSnapshots[snap]
             }
         }
-        return ['number','undefined'].includes(typeof ver) ? ver : ver[type || 'resource'];
+        return ['number', 'undefined'].includes(typeof ver) ? ver : ver[type || 'resource']
     }
 
     // Release //
 
-    version = version.toLowerCase().replace(' pre-release ', '-pre').replace(' release candidate ', '-rc')
+    version = version.replace(/-? *pre[- ]?(release)? */i, '-pre').replace(/ *release candidate */i, '-rc')
 
     if (version.includes('-')) {
         if (version.includes('1.16.2-pre')) return 5
@@ -49,7 +49,7 @@ function getPackFormat(version, type) {
         2: ['1.9.x', '1.10.x'],
         3: ['1.11.x', '1.12.x'],
         4: ['1.13.x', '1.14.x'],
-        5: ['1.15.x', '1.16', '1.16.1'],
+        5: ['1.15.x', '1.16.0', '1.16.1'],
         6: ['1.16.x'],
         7: ['1.17.x'],
     }
