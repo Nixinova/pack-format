@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3
+*2021-03-04*
+- Changed output to return `undefined` for future snapshots.
+- Fixed data versions before `4` being returned when they should be `undefined`.
+- Refactored code into TypeScript.
+
 ## 1.1.2
 *2021-02-28*
 - Changed coercing of version input to be more lenient.

@@ -1,8 +1,9 @@
 {
     "name": "pack-format",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "description": "Returns the pack_format of any Minecraft version, including snapshots",
     "scripts": {
+        "prepublish": "tsc",
         "test": "node test"
     },
     "keywords": [
@@ -15,6 +16,10 @@
     "bin": {
         "pack-format": "cli.js"
     },
+    "files": [
+        "index.js",
+        "cli.js"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Nixinova/pack-format.git"
@@ -24,5 +29,8 @@
         "url": "https://github.com/Nixinova/pack-format/issues"
     },
     "license": "ISC",
-    "dependencies": {}
+    "devDependencies": {
+        "@types/node": "^14.14.31",
+        "typescript": "^4.2.2"
+    }
 }
