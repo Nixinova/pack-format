@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+*2021-03-06*
+- Added function `getVersions(pack_format: number, type?: string): object` to retrieve a list of versions that have the specified pack_format.
+- Added CLI implementation of `getVersions`, `pack-format --list [--data|--version] <pack_format>`.
+- Fixed data pack format always returning `undefined`.
+
 ## 1.1.3
 *2021-03-04*
 - Changed output to return `undefined` for future snapshots.
