@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const VERSION: string = '1.2.0'
+const VERSION: string = '1.2.1'
 
-import { getPackFormat, getVersions } from './index'
+import { getPackFormat, getVersions, LATEST } from './index'
 
 const arg = (n: number): string => process.argv[n + 1]
 const indent = (n: number): string => ' '.repeat(n * 4)
@@ -13,18 +13,32 @@ const log = function (arg: string, desc: string[], example: string): void {
     console.log(`${indent(3)}Example: ${example}`)
 }
 
-if (arg(1) && !arg(1).includes('h'))
-    if (/^-*v/.test(arg(1)))
+if (arg(1) && !arg(1).includes('h')) {
+    const cmd = arg(1)
+    if (/^-*v/.test(cmd)) {
         console.log(`The current version of pack-format is ${VERSION}`)
-    else if (/^-*d/.test(arg(1)))
-        console.log(`Data pack format of ${arg(2)} is ${getPackFormat(arg(2), 'data')}`)
-    else if (/^-*r/.test(arg(1)))
-        console.log(`Resource pack format of ${arg(2)} is ${getPackFormat(arg(2), 'resource')}`)
-    else if (/^-*l/.test(arg(1)))
+    }
+    else if (/^-*d/.test(cmd)) {
+        const ver = arg(2)
+        console.log(`Data pack format of ${ver} is ${getPackFormat(ver, 'data')}`)
+    }
+    else if (/^-*r/.test(cmd)) {
+        const ver = arg(2)
+        console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource')}`)
+    }
+    else if (/^-*l/.test(cmd)) {
         if (arg(3)) console.log(getVersions(+arg(3), /^-*d/.test(arg(2)) ? 'data' : 'resource'))
         else console.log(getVersions(+arg(2)))
-    else
-        console.log(`Pack format of ${arg(1)} is ${getPackFormat(arg(1))}`)
+    }
+    else if (/^-*L/.test(cmd)) {
+        const type = /^-*d/.test(arg(2)) ? 'data' : 'resource'
+        if (arg(2)) console.log(`The latest ${type} pack version is ${LATEST[type]}.`)
+        else console.log(`The latest pack version is ${LATEST.resource}.`)
+    }
+    else {
+        console.log(`Pack format of ${cmd} is ${getPackFormat(cmd)}`)
+    }
+}
 else {
     console.log(`\n${indent(1)}pack-format arguments:`)
     log(
@@ -38,13 +52,18 @@ else {
         'pack-format --data 20w45a',
     )
     log(
-        '(--resource|-r) <version>', 
+        '(--resource|-r) <version>',
         ['Retrieve the resource pack format in particular when applicable.'],
         'pack-format -r 20w45a',
     )
     log(
-        '(--list|-l) [(--data|-d)|(--resource|-r)] <pack_format>', 
+        '(--list|-l) [(--data|-d)|(--resource|-r)] <pack_format>',
         ['Retrieve a list of versions attached to a specific pack format.'],
         'pack-format --list -d 6',
+    )
+    log(
+        '(--latest|-L) [(--data|-d)|(--resource|-r)]',
+        ['Retrieve the latest pack format.'],
+        'pack-format --latest --resource',
     )
 }

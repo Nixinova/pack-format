@@ -1,4 +1,4 @@
-import { packType, formatResult, versionsResult } from './types'
+import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } from './types'
 
 class Snapshot {
     version: string
@@ -8,7 +8,7 @@ class Snapshot {
     get id(): number { return (this.year - 10) * 52 + this.week }
 }
 
-const RELEASES: Record<number, string[]> = {
+const RELEASES: Record<number, VersionName[]> = {
     1: ['1.6.x', '1.7.x', '1.8.x'],
     2: ['1.9.x', '1.10.x'],
     3: ['1.11.x', '1.12.x'],
@@ -18,9 +18,9 @@ const RELEASES: Record<number, string[]> = {
     7: ['1.17.x'],
 }
 
-const d: Date = new Date()
-const fauxCurrentSnapshot: string = (d.getFullYear() - 2000) + 'w' + ((d.getMonth() + 1) * 5) + 'a'
-const START_SNAPSHOTS: Record<string, Record<packType, formatResult>> = {
+const d = new Date()
+const fauxCurrentSnapshot = (d.getFullYear() - 2000) + 'w' + ((d.getMonth() + 1) * 5).toString().padStart(2, '0') + 'a' as SnapshotName
+const START_SNAPSHOTS: Record<SnapshotName | string, Record<PackType, FormatResult>> = {
     '13w24a': { resource: 1, data: undefined },
     '15w31a': { resource: 2, data: undefined },
     '16w32a': { resource: 3, data: undefined },
@@ -28,20 +28,21 @@ const START_SNAPSHOTS: Record<string, Record<packType, formatResult>> = {
     '20w06a': { resource: 5, data: 5 },
     '20w45a': { resource: 7, data: 6 },
     '20w46a': { resource: 7, data: 7 },
-    [fauxCurrentSnapshot]: { resource: undefined, data: undefined }
+    [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
-function getPackFormat(version: string, type: packType = 'resource'): formatResult {
+const LATEST = { resource: 7, data: 7 }
+
+function getPackFormat(version: string, type: PackType = 'resource'): FormatResult {
     if (!version) return undefined
     version = version.toString().toLowerCase().trim()
 
     // Snapshot //
 
-    if (/^\d\dw\d\d\w$/.test(version)) {
+    if (/^\d\d[w]\d\d[a-z]$/.test(version)) {
         const snapshot = new Snapshot(version)
-
-        let ver: formatResult
-        for (let testSnap in START_SNAPSHOTS) {
+        let ver: FormatResult
+        for (let testSnap of Object.keys(START_SNAPSHOTS)) {
             if (snapshot.id >= (new Snapshot(testSnap)).id) {
                 ver = START_SNAPSHOTS[testSnap][type]
             }
@@ -67,34 +68,34 @@ function getPackFormat(version: string, type: packType = 'resource'): formatResu
             if (matchExact || matchMinor) return +i
         }
     }
+
     return undefined
 }
 
-function getVersions(format: number, type: packType = 'resource'): versionsResult {
-    let output = {
+function getVersions(format: number, type: PackType = 'resource'): VersionsResult {
+    let output: VersionsResult = {
         'releases': { 'min': '', 'max': '' },
         'snapshots': { 'min': '', 'max': '' },
     }
-    if (!format || (type === 'data' && format < 4)) return output
+    if (!format || format > LATEST[type] || (type === 'data' && format < 4)) return output
 
     output.releases.min = RELEASES[format][0]
     output.releases.max = RELEASES[format].slice(-1)[0]
 
-    const startSnaps = Object.keys(START_SNAPSHOTS)
-    for (let snap in START_SNAPSHOTS) {
+    const startSnaps: string[] = Object.keys(START_SNAPSHOTS)
+    for (const snap in START_SNAPSHOTS) {
         if (START_SNAPSHOTS[snap][type] === format) {
-            let maxSnap: string = snap
+            let maxSnap = snap as SnapshotName
             let i = 1
             do {
-                let nextSnap = startSnaps[startSnaps.indexOf(snap) + i++]
+                const nextSnap = startSnaps[startSnaps.indexOf(snap) + i++] as SnapshotName
                 if (nextSnap) maxSnap = nextSnap
                 else break
             }
             while (getPackFormat(maxSnap, type) === getPackFormat(snap, type))
 
-            const prevSnap: string = maxSnap?.replace(/(\d)(?=\w$)/, (_, n) => String(+n - 1))
-            output.snapshots.min = snap
-            output.snapshots.max = prevSnap
+            output.snapshots.min = snap as SnapshotName
+            output.snapshots.max = maxSnap.replace(/(\d\d)[a-z]$/, (_, n) => (+n - 1).toString() + 'a') as SnapshotName
             break
         }
     }
@@ -104,5 +105,6 @@ function getVersions(format: number, type: packType = 'resource'): versionsResul
 
 getPackFormat.getPackFormat = getPackFormat
 getPackFormat.getVersions = getVersions
+getPackFormat.LATEST = LATEST
 
 export = getPackFormat

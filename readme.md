@@ -23,14 +23,17 @@ To install pack-format, open the command line and type `npm install pack-format`
 ### Node
 
 Retrieve the `pack_format` of a given Minecraft version, optionally specifying whether the resource (default) or data pack version should be returned.
+
 ```js
 const packFormat = require('pack-format')
 packFormat('1.14.4') // 4
 packFormat('1.16.2-pre1', 'resource') // 5
 packFormat('20w45a', 'data') // 6
+packFormat.LATEST.data // 7
 ```
 
 Retrieve a list of versions corresponding to a specific `pack_format`, again optionally specifying resource/data pack version.
+
 ```js
 const {getVersions} = require('pack-format')
 getVersions(3) // { releases: { min: '1.11.x', max: '1.12.x' }, snapshots: { min: '16w32a', max: '17w47a' } }

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1
+*2021-04-06*
+- Added constant `LATEST` which returns the latest `pack_format` for both resource and data pack formats.
+- Added type definitions to package.
+- Fixed the automatically-generated current snapshot not working for single-digit weeks.
+- Fixed `getVersions()` sometimes returning invalid maximum versions.
+- Fixed `getVersions()` crashing when given a future pack version.
+
 ## 1.2.0
 *2021-03-06*
 - Added function `getVersions(pack_format: number, type?: string): object` to retrieve a list of versions that have the specified pack_format.

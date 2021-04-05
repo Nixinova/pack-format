@@ -1,11 +1,11 @@
-import { getPackFormat as packFormat, getVersions } from './index'
-import { packType, formatResult, versionsResult } from './types'
+import { getPackFormat as packFormat, getVersions } from '../src/index'
+import { PackType, FormatResult, VersionsResult } from '../src/types'
 
-let total = 0, passed = 0, failed = 0
+let [total, passed, failed]: number[] = [0, 0, 0]
 
-function testPackFormat([input, type]: [string, packType?], expected: formatResult): void {
-    let ver = packFormat(input, type)
-    let pass = ver == expected
+function testPackFormat([input, type]: [string, PackType?], expected: FormatResult): void {
+    let ver: FormatResult = packFormat(input, type)
+    let pass: boolean = ver === expected
     if (pass) passed++
     else failed++
     total++
@@ -17,13 +17,13 @@ function testPackFormat([input, type]: [string, packType?], expected: formatResu
     )
 }
 
-function testVersions([input, type]: [number, packType?], expected: versionsResult) {
-    let obj = getVersions(input, type)
+function testVersions([input, type]: [number, PackType?], expected: VersionsResult) {
+    let obj: VersionsResult = getVersions(input, type)
     let pass = obj.releases.max === expected.releases.max && obj.snapshots.min === expected.snapshots.min
     if (pass) passed++
     else failed++
     total++
-    const cleanObj = (obj: versionsResult) => JSON.stringify(obj).replace(/"(?!")/g, '')
+    const cleanObj = (obj: VersionsResult) => JSON.stringify(obj).replace(/"(?!")/g, '')
     console.log(
         (pass ? '  ' : '! ')
         + `Versions with ${type ? type + ' ' : ''}pack format ${input}: ${cleanObj(obj)}`
