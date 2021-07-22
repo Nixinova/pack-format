@@ -8,6 +8,8 @@ class Snapshot {
     get id(): number { return (this.year - 10) * 52 + this.week }
 }
 
+const LATEST = { resource: 7, data: 7 }
+
 const RELEASES: Record<number, VersionName[]> = {
     1: ['1.6.x', '1.7.x', '1.8.x'],
     2: ['1.9.x', '1.10.x'],
@@ -15,12 +17,18 @@ const RELEASES: Record<number, VersionName[]> = {
     4: ['1.13.x', '1.14.x'],
     5: ['1.15.x', '1.16.0', '1.16.1'],
     6: ['1.16.x'],
-    7: ['1.17.x'],
+    7: ['1.17.x', '1.18.0'],
 }
 
-const d = new Date()
-const fauxCurrentSnapshot = (d.getFullYear() - 2000) + 'w' + ((d.getMonth() + 1) * 5).toString().padStart(2, '0') + 'a' as SnapshotName
-const START_SNAPSHOTS: Record<SnapshotName | string, Record<PackType, FormatResult>> = {
+const SPECIAL: Record<number, string[]> = {
+    4: ['combat1', 'combat2', 'combat3'],
+    5: ['combat4', 'combat5'],
+    6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
+}
+
+const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5
+const fauxCurrentSnapshot: SnapshotName = `${year}w${maxWeek.toString().padStart(2, '0')}a`
+const START_SNAPSHOTS: Record<SnapshotName, Record<PackType, FormatResult>> = {
     '13w24a': { resource: 1, data: undefined },
     '15w31a': { resource: 2, data: undefined },
     '16w32a': { resource: 3, data: undefined },
@@ -31,19 +39,23 @@ const START_SNAPSHOTS: Record<SnapshotName | string, Record<PackType, FormatResu
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
-const LATEST = { resource: 7, data: 7 }
-
 function getPackFormat(version: string, type: PackType = 'resource'): FormatResult {
     if (!version) return undefined
     version = version.toString().toLowerCase().trim()
+
+    // Special //
+    for (const format in SPECIAL) {
+        if (SPECIAL[format].includes(version)) return +format;
+    }
 
     // Snapshot //
 
     if (/^\d\d[w]\d\d[a-z]$/.test(version)) {
         const snapshot = new Snapshot(version)
         let ver: FormatResult
-        for (let testSnap of Object.keys(START_SNAPSHOTS)) {
+        for (const testSnap in START_SNAPSHOTS) {
             if (snapshot.id >= (new Snapshot(testSnap)).id) {
+                // @ts-ignore: #45159
                 ver = START_SNAPSHOTS[testSnap][type]
             }
         }
@@ -58,14 +70,14 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         if (version.includes('1.16.2-pre')) return 5
         else version = version.replace(/-.+$/, '')
     }
-    if (version.match(/^\d+\.\d+$/)) version += '.0'
+    if (/^\d+\.\d+$/.test(version)) version += '.0'
 
-    for (let i in RELEASES) {
-        if (+i < 4 && type === 'data') continue
-        for (let testVer of RELEASES[i]) {
+    for (const format in RELEASES) {
+        if (+format < 4 && type === 'data') continue
+        for (let testVer of RELEASES[format]) {
             const matchExact = testVer === version
             const matchMinor = testVer.includes('x') && version.includes(testVer.replace('.x', ''))
-            if (matchExact || matchMinor) return +i
+            if (matchExact || matchMinor) return +format
         }
     }
 
@@ -84,6 +96,7 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
 
     const startSnaps: string[] = Object.keys(START_SNAPSHOTS)
     for (const snap in START_SNAPSHOTS) {
+        // @ts-ignore: #45159
         if (START_SNAPSHOTS[snap][type] === format) {
             let maxSnap = snap as SnapshotName
             let i = 1

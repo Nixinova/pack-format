@@ -1,5 +1,5 @@
 export type VersionName = `1.${number}.${number | 'x'}`
-export type SnapshotName = `${number}w${number}${string}`
+export type SnapshotName = `${number}w${string}${string}`
 
 export type PackType = 'resource' | 'data'
 export type PackMap = Record<PackType, FormatResult>

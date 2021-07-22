@@ -1,8 +1,5 @@
-#!/usr/bin/env node
-
-const VERSION: string = '1.2.1'
-
 import { getPackFormat, getVersions, LATEST } from './index'
+const VERSION: string = require('../package.json').version
 
 const arg = (n: number): string => process.argv[n + 1]
 const indent = (n: number): string => ' '.repeat(n * 4)

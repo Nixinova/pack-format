@@ -23,7 +23,7 @@ function testVersions([input, type]: [number, PackType?], expected: VersionsResu
     if (pass) passed++
     else failed++
     total++
-    const cleanObj = (obj: VersionsResult) => JSON.stringify(obj).replace(/"(?!")/g, '')
+    const cleanObj = (obj: VersionsResult) => JSON.stringify(obj).replace(/"([^"]*?)":/g, '$1:')
     console.log(
         (pass ? '  ' : '! ')
         + `Versions with ${type ? type + ' ' : ''}pack format ${input}: ${cleanObj(obj)}`
@@ -53,9 +53,11 @@ testPackFormat(['20w45a'], 7)
 testPackFormat(['20w45a', 'resource'], 7)
 testPackFormat(['20w45a', 'data'], 6)
 testPackFormat(['20w46a', 'data'], 7)
+testPackFormat(['combat3'], 4)
+testPackFormat(['1.18-exp1'], 7)
 
 testVersions([3, 'data'], { releases: { min: '', max: '' }, snapshots: { min: '', max: '' } })
 testVersions([6, 'resource'], { releases: { min: '1.16.x', max: '1.16.x' }, snapshots: { min: '', max: '' } })
-testVersions([7], { releases: { min: '1.17.x', max: '1.17.x' }, snapshots: { min: '20w45a', max: '21w14a' } })
+testVersions([6, 'data'], { releases: { min: '1.16.x', max: '1.16.x' }, snapshots: { min: '20w45a', max: '20w45a' } })
 
 console.log(`\nRan ${total} tests | ${passed} passed | ${failed} failed`)

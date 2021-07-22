@@ -1,10 +1,10 @@
 {
     "name": "pack-format",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "Returns the pack_format of any Minecraft version, including snapshots",
     "scripts": {
         "prepublish": "tsc",
-        "test": "node test"
+        "test": "tsc && node test/test"
     },
     "keywords": [
         "minecraft",
@@ -14,9 +14,10 @@
     ],
     "main": "src/index.js",
     "bin": {
-        "pack-format": "src/cli.js"
+        "pack-format": "bin/index.js"
     },
     "files": [
+        "bin/*.js",
         "src/*.js",
         "src/*.d.ts"
     ],
@@ -30,7 +31,7 @@
     },
     "license": "ISC",
     "devDependencies": {
-        "@types/node": "^14.14.31",
-        "typescript": "~4.2.3"
+        "@types/node": "ts4.3",
+        "typescript": "~4.3.5"
     }
 }

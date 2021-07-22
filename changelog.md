@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2
+*2021-07-23*
+- Added support for Combat Test snapshots.
+- Updated to support 1.18 experimental snapshots.
+
 ## 1.2.1
 *2021-04-06*
 - Added constant `LATEST` which returns the latest `pack_format` for both resource and data pack formats.
