@@ -1,6 +1,11 @@
 # Changelog
 
+## 1.2.5
+*2021-09-16*
+- Fixed CLI usage not working.
+
 ## 1.2.4
+*2021-09-16*
 - Updated `LATEST` pack formats to `8`.
 - Changed CLI argument parsing to no longer require a fixed argument order.
 
