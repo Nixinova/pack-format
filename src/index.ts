@@ -17,7 +17,8 @@ const RELEASES: Record<number, VersionName[]> = {
     4: ['1.13.x', '1.14.x'],
     5: ['1.15.x', '1.16.0', '1.16.1'],
     6: ['1.16.x'],
-    7: ['1.17.x', '1.18.0'],
+    7: ['1.17.x'],
+    8: ['1.18.x'],
 }
 
 const SPECIAL: Record<number, string[]> = {
@@ -36,6 +37,7 @@ const START_SNAPSHOTS: Record<SnapshotName, Record<PackType, FormatResult>> = {
     '20w06a': { resource: 5, data: 5 },
     '20w45a': { resource: 7, data: 6 },
     '20w46a': { resource: 7, data: 7 },
+    '21w37a': { resource: 8, data: 8 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
@@ -64,11 +66,17 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
 
     // Release //
 
-    version = version.replace(/-? *pre[- ]?(release)? */, '-pre').replace(/ *release candidate */, '-rc')
+    version = version
+        .replace(/-? *pre[- ]?(release)? */, '-pre')
+        .replace(/ *release candidate */, '-rc')
+        .replace(/ *experimental *snapshot|-es/, '-exp')
 
     if (version.includes('-')) {
+        // Special cases for specific development versions
         if (version.includes('1.16.2-pre')) return 5
-        else version = version.replace(/-.+$/, '')
+        if (version.includes('1.18-e')) return 7
+        // Default to the parent version
+        version = version.replace(/-.+$/, '')
     }
     if (/^\d+\.\d+$/.test(version)) version += '.0'
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.3
+*2021-09-16*
+- Updated to support 1.18 snapshots.
+
 ## 1.2.2
 *2021-07-23*
 - Added support for Combat Test snapshots.
