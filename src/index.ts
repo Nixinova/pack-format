@@ -8,7 +8,7 @@ class Snapshot {
     get id(): number { return (this.year - 10) * 52 + this.week }
 }
 
-const LATEST = { resource: 7, data: 7 }
+const LATEST = { resource: 8, data: 8 }
 
 const RELEASES: Record<number, VersionName[]> = {
     1: ['1.6.x', '1.7.x', '1.8.x'],
