@@ -1,6 +1,6 @@
 {
     "name": "pack-format",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "description": "Returns the pack_format of any Minecraft version, including snapshots",
     "scripts": {
         "prepublish": "tsc",

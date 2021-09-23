@@ -30,7 +30,6 @@ if (ver) {
         console.log(`pack-format v${VERSION}`)
     }
     else if (args.list) {
-        console.debug(ver, args)
         if (Number.isNaN(ver)) throw new Error(`'${ver}' is not a valid pack format`)
         if (Math.round(+ver) !== +ver) throw new Error(`'${ver}' is a version number, not a pack format`)
         const type = args.data ? 'data' : 'resource'

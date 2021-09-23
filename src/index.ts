@@ -8,17 +8,34 @@ class Snapshot {
     get id(): number { return (this.year - 10) * 52 + this.week }
 }
 
-const LATEST = { resource: 8, data: 8 }
+// Data sets //
 
-const RELEASES: Record<number, VersionName[]> = {
-    1: ['1.6.x', '1.7.x', '1.8.x'],
-    2: ['1.9.x', '1.10.x'],
-    3: ['1.11.x', '1.12.x'],
-    4: ['1.13.x', '1.14.x'],
-    5: ['1.15.x', '1.16.0', '1.16.1'],
-    6: ['1.16.x'],
-    7: ['1.17.x'],
-    8: ['1.18.x'],
+const LATEST = { resource: 7, data: 8 }
+
+const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
+    '1.6.x': { resource: 1, data: undefined },
+    '1.9.x': { resource: 2, data: undefined },
+    '1.11.x': { resource: 3, data: undefined },
+    '1.13.x': { resource: 4, data: 4 },
+    '1.15.x': { resource: 5, data: 5 },
+    '1.16.2': { resource: 6, data: 6 },
+    '1.17.x': { resource: 7, data: 7 },
+    '1.18.x': { resource: 7, data: 8 },
+    '1.19.x': { resource: undefined, data: undefined },
+}
+
+const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5
+const fauxCurrentSnapshot: SnapshotName = `${year}w${maxWeek.toString().padStart(2, '0')}a`
+const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
+    '13w24a': { resource: 1, data: undefined },
+    '15w31a': { resource: 2, data: undefined },
+    '16w32a': { resource: 3, data: undefined },
+    '17w48a': { resource: 4, data: 4 },
+    '20w06a': { resource: 5, data: 5 },
+    '20w45a': { resource: 7, data: 6 },
+    '20w46a': { resource: 7, data: 7 },
+    '21w37a': { resource: 7, data: 8 },
+    [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
 const SPECIAL: Record<number, string[]> = {
@@ -27,38 +44,24 @@ const SPECIAL: Record<number, string[]> = {
     6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
 }
 
-const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5
-const fauxCurrentSnapshot: SnapshotName = `${year}w${maxWeek.toString().padStart(2, '0')}a`
-const START_SNAPSHOTS: Record<SnapshotName, Record<PackType, FormatResult>> = {
-    '13w24a': { resource: 1, data: undefined },
-    '15w31a': { resource: 2, data: undefined },
-    '16w32a': { resource: 3, data: undefined },
-    '17w48a': { resource: 4, data: 4 },
-    '20w06a': { resource: 5, data: 5 },
-    '20w45a': { resource: 7, data: 6 },
-    '20w46a': { resource: 7, data: 7 },
-    '21w37a': { resource: 8, data: 8 },
-    [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
-}
-
 function getPackFormat(version: string, type: PackType = 'resource'): FormatResult {
     if (!version) return undefined
     version = version.toString().toLowerCase().trim()
 
     // Special //
     for (const format in SPECIAL) {
-        if (SPECIAL[format].includes(version)) return +format;
+        if (SPECIAL[format].includes(version)) return +format
     }
 
-    // Snapshot //
+    if (!version.includes('.') && !/\d{2}w\d{2}\w/.test(version)) return undefined
 
+    // Snapshot //
     if (/^\d\d[w]\d\d[a-z]$/.test(version)) {
         const snapshot = new Snapshot(version)
         let ver: FormatResult
         for (const testSnap in START_SNAPSHOTS) {
             if (snapshot.id >= (new Snapshot(testSnap)).id) {
-                // @ts-ignore: #45159
-                ver = START_SNAPSHOTS[testSnap][type]
+                ver = START_SNAPSHOTS[testSnap as SnapshotName][type]
             }
         }
         return ver
@@ -78,15 +81,14 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         // Default to the parent version
         version = version.replace(/-.+$/, '')
     }
-    if (/^\d+\.\d+$/.test(version)) version += '.0'
 
-    for (const format in RELEASES) {
-        if (+format < 4 && type === 'data') continue
-        for (let testVer of RELEASES[format]) {
-            const matchExact = testVer === version
-            const matchMinor = testVer.includes('x') && version.includes(testVer.replace('.x', ''))
-            if (matchExact || matchMinor) return +format
+    for (const testVer of Object.keys(START_RELEASES).reverse()) {
+        const getId = (ver: string): number => {
+            const [, major, minor] = ver.split('.')
+            return +major.padStart(3, '0') + +(minor ?? 0) / 100
         }
+        if (getId(testVer.replace('.x', '')) > getId(version)) continue
+        return START_RELEASES[testVer as VersionName][type]
     }
 
     return undefined
@@ -99,26 +101,24 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
     }
     if (!format || format > LATEST[type] || (type === 'data' && format < 4)) return output
 
-    output.releases.min = RELEASES[format][0]
-    output.releases.max = RELEASES[format].slice(-1)[0]
+    // Min and max releases
+    const startReleases = Object.entries(START_RELEASES)
+    const relIndex = startReleases.findIndex(([, data]) => data[type] === format)
+    if (relIndex >= 0) {
+        const minRelease = startReleases[relIndex][0]
+        const maxRelease = startReleases[relIndex + 1][0].replace(/\.(\d+)\./, (_, major) => `.${major - 1}.`)
+        output.releases.min = minRelease as VersionName
+        output.releases.max = maxRelease as VersionName
+    }
 
-    const startSnaps: string[] = Object.keys(START_SNAPSHOTS)
-    for (const snap in START_SNAPSHOTS) {
-        // @ts-ignore: #45159
-        if (START_SNAPSHOTS[snap][type] === format) {
-            let maxSnap = snap as SnapshotName
-            let i = 1
-            do {
-                const nextSnap = startSnaps[startSnaps.indexOf(snap) + i++] as SnapshotName
-                if (nextSnap) maxSnap = nextSnap
-                else break
-            }
-            while (getPackFormat(maxSnap, type) === getPackFormat(snap, type))
-
-            output.snapshots.min = snap as SnapshotName
-            output.snapshots.max = maxSnap.replace(/(\d\d)[a-z]$/, (_, n) => (+n - 1).toString() + 'a') as SnapshotName
-            break
-        }
+    // Min and max snapshots
+    const startSnaps = Object.entries(START_SNAPSHOTS)
+    const snapIndex = startSnaps.findIndex(([, data]) => data[type] === format)
+    if (snapIndex >= 0) {
+        const maxSnap = startSnaps[snapIndex][0]
+        const minSnap = startSnaps[snapIndex + 1][0].replace(/(\d)\w$/, (_, n) => `${n - 1}a`)
+        output.snapshots.min = maxSnap as SnapshotName
+        output.snapshots.max = minSnap as SnapshotName
     }
 
     return output
