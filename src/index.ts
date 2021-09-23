@@ -1,13 +1,5 @@
 import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } from './types'
 
-class Snapshot {
-    version: string
-    constructor(version: string) { this.version = version }
-    get year(): number { return parseInt(this.version.replace(/^(\d\d).+$/, '$1')) }
-    get week(): number { return parseInt(this.version.replace(/^\d\dw(\d\d)\w$/, '$1')) }
-    get id(): number { return (this.year - 10) * 52 + this.week }
-}
-
 // Data sets //
 
 const LATEST = { resource: 7, data: 8 }
@@ -57,14 +49,12 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
 
     // Snapshot //
     if (/^\d\d[w]\d\d[a-z]$/.test(version)) {
-        const snapshot = new Snapshot(version)
-        let ver: FormatResult
-        for (const testSnap in START_SNAPSHOTS) {
-            if (snapshot.id >= (new Snapshot(testSnap)).id) {
-                ver = START_SNAPSHOTS[testSnap as SnapshotName][type]
-            }
+        const getId = (snap: string) => +snap.replace(/[^\d]/g, '')
+        for (const testSnap of Object.keys(START_SNAPSHOTS).reverse()) {
+            if (getId(version) < getId(testSnap)) continue;
+            return START_SNAPSHOTS[testSnap as SnapshotName][type]
         }
-        return ver
+        return undefined
     }
 
     // Release //
