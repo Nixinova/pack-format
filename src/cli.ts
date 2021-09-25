@@ -1,7 +1,5 @@
-import yargs from 'yargs-parser';
-
 import { getPackFormat, getVersions, LATEST } from './index'
-import { version as VERSION } from '../package.json';
+import { version as VERSION } from '../package.json'
 
 const indent = (n: number): string => ' '.repeat(n * 4)
 const log = function (arg: string, desc: string[], example: string): void {
@@ -11,44 +9,41 @@ const log = function (arg: string, desc: string[], example: string): void {
     console.log(`${indent(3)}Example: ${example}`)
 }
 
-const argOpts: yargs.Options = {
-    alias: {
-        help: ['h'],
-        version: ['v'],
-        resource: ['r'],
-        data: ['d'],
-        list: ['l'],
-        latest: ['L'],
-    },
-    boolean: ['help', 'version', 'resource', 'data', 'list', 'latest'],
+const rawArgs = process.argv.slice(2)
+const args = {
+    help: rawArgs.some(arg => /^-+h/.test(arg)),
+    version: rawArgs.some(arg => /^-+v/.test(arg)),
+    resource: rawArgs.some(arg => /^-+r/.test(arg)),
+    data: rawArgs.some(arg => /^-+d/.test(arg)),
+    list: rawArgs.some(arg => /^-+l(?!atest)/.test(arg)),
+    latest: rawArgs.some(arg => /^-+L|^-+latest/.test(arg)),
+    _: rawArgs.filter(arg => !arg.startsWith('-')),
 }
-const args = yargs(process.argv.slice(2), argOpts)
-const ver = args._[0];
+const ver = args._[0]
 
 if (ver) {
     if (args.version) {
         console.log(`pack-format v${VERSION}`)
     }
     else if (args.list) {
-        if (Number.isNaN(ver)) throw new Error(`'${ver}' is not a valid pack format`)
-        if (Math.round(+ver) !== +ver) throw new Error(`'${ver}' is a version number, not a pack format`)
-        const type = args.data ? 'data' : 'resource'
-        console.log(getVersions(+ver, type))
+        if (Number.isNaN(ver)) console.error(`'${ver}' is not a valid pack format`)
+        else if (Math.round(+ver) !== +ver) console.error(`'${ver}' is a version number, not a pack format`)
+        else {
+            const type = args.data ? 'data' : 'resource'
+            console.log(getVersions(+ver, type))
+        }
     }
     else if (args.data) {
         console.log(`Data pack format of ${ver} is ${getPackFormat(ver, 'data')}`)
     }
-    else if (args.resource) {
-        console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource')}`)
-    }
     else {
-        console.log(`Pack format of ${ver} is ${getPackFormat(ver)}`)
+        console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource')}`)
     }
 }
 else if (args.latest) {
     const type = args.data ? 'data' : args.resource ? 'resource' : ''
-    if (type) console.log(`The latest ${type} pack version is ${LATEST[type]}.`)
-    else console.log(`The latest pack version is ${LATEST.resource}.`)
+    if (type) console.log(`The latest ${type} pack format version is ${LATEST[type]}.`)
+    else console.log(`The latest pack format version is ${Math.max(LATEST.resource, LATEST.data)}.`)
 }
 if (args.help) {
     console.log(`\n${indent(1)}pack-format arguments:`)
