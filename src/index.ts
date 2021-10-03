@@ -2,7 +2,7 @@ import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } fro
 
 // Data sets //
 
-const LATEST = { resource: 7, data: 8 }
+const LATEST = { resource: 8, data: 8 }
 
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.6.x': { resource: 1, data: undefined },
@@ -12,7 +12,7 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.15.x': { resource: 5, data: 5 },
     '1.16.2': { resource: 6, data: 6 },
     '1.17.x': { resource: 7, data: 7 },
-    '1.18.x': { resource: 7, data: 8 },
+    '1.18.x': { resource: 8, data: 8 },
     '1.19.x': { resource: undefined, data: undefined },
 }
 
@@ -27,6 +27,7 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '20w45a': { resource: 7, data: 6 },
     '20w46a': { resource: 7, data: 7 },
     '21w37a': { resource: 7, data: 8 },
+    '21w39a': { resource: 8, data: 8 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
@@ -36,6 +37,11 @@ const SPECIAL: Record<number, string[]> = {
     6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
 }
 
+/**
+ * @param version the version to look up
+ * @param type the pack format type to return; either 'resource' or 'data'
+ * @returns the pack format for a given version
+ */
 function getPackFormat(version: string, type: PackType = 'resource'): FormatResult {
     if (!version) return undefined
     version = version.toString().toLowerCase().trim()
@@ -84,6 +90,12 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
     return undefined
 }
 
+/**
+ * Retrieve a list of applicable versions for a given pack format
+ * @param format the pack format to look up
+ * @param type the pack format type to return; either 'resource' or 'data'
+ * @returns an object containing minimum and maximum applicable release and snapshot versions
+ */
 function getVersions(format: number, type: PackType = 'resource'): VersionsResult {
     let output: VersionsResult = {
         'releases': { 'min': '', 'max': '' },
@@ -103,10 +115,12 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
 
     // Min and max snapshots
     const startSnaps = Object.entries(START_SNAPSHOTS)
-    const snapIndex = startSnaps.findIndex(([, data]) => data[type] === format)
-    if (snapIndex >= 0) {
-        const maxSnap = startSnaps[snapIndex][0]
-        const minSnap = startSnaps[snapIndex + 1][0].replace(/(\d)\w$/, (_, n) => `${n - 1}a`)
+    const snapIndices = startSnaps.flatMap((item) => item[1][type] === format ? startSnaps.indexOf(item) : [])
+    if (snapIndices.length) {
+        const minIndex = snapIndices[0]
+        const maxIndex = snapIndices[snapIndices.length - 1]
+        const maxSnap = startSnaps[minIndex][0]
+        const minSnap = startSnaps[maxIndex + 1][0].replace(/(\d+)\w$/, (_, n) => `${n - 1}a`)
         output.snapshots.min = maxSnap as SnapshotName
         output.snapshots.max = minSnap as SnapshotName
     }

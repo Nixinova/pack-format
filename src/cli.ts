@@ -1,5 +1,5 @@
 import { getPackFormat, getVersions, LATEST } from './index'
-import { version as VERSION } from '../package.json'
+const VERSION = require('../package.json').version;
 
 const indent = (n: number): string => ' '.repeat(n * 4)
 const log = function (arg: string, desc: string[], example: string): void {

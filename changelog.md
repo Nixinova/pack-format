@@ -1,9 +1,15 @@
 # Changelog
 
+## 1.2.7
+*2021-10-03*
+- Fixed snapshots appearing malformed when using `getVersions()`.
+- Fixed incorrect maximum snapshot data being listed when using `getVersions()`.
+- Updated resource pack format to `8`.
+
 ## 1.2.6
 *2021-09-23*
 - Fixed `getVersions()` returning invalid snapshots.
-- Fixed 1.18 resource pack version being `8` instead of `7`.
+- Fixed 1.18 snapshot resource pack versions being `8` instead of `7`.
 
 ## 1.2.5
 *2021-09-16*
