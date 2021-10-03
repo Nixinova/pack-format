@@ -1,11 +1,10 @@
-import { getPackFormat as packFormat, getVersions } from '../src/index'
-import { PackType, FormatResult, VersionsResult } from '../src/types'
+const { getPackFormat: packFormat, getVersions } = require('../dist/index')
 
-let [total, passed, failed]: number[] = [0, 0, 0]
+let [total, passed, failed] = [0, 0, 0]
 
-function testPackFormat([input, type]: [string, PackType?], expected: FormatResult): void {
-    let ver: FormatResult = packFormat(input, type)
-    let pass: boolean = ver === expected
+function testPackFormat([input, type], expected) {
+    const ver = packFormat(input, type)
+    const pass = ver === expected
     if (pass) passed++
     else failed++
     total++
@@ -17,13 +16,13 @@ function testPackFormat([input, type]: [string, PackType?], expected: FormatResu
     )
 }
 
-function testVersions([input, type]: [number, PackType?], expected: VersionsResult) {
-    let obj: VersionsResult = getVersions(input, type)
+function testVersions([input, type], expected) {
+    const obj = getVersions(input, type)
     let pass = obj.releases.max === expected.releases.max && obj.snapshots.min === expected.snapshots.min
     if (pass) passed++
     else failed++
     total++
-    const cleanObj = (obj: VersionsResult) => JSON.stringify(obj).replace(/"([^"]*?)":/g, '$1:')
+    const cleanObj = (obj) => JSON.stringify(obj).replace(/"([^"]*?)":/g, '$1:')
     console.log(
         (pass ? '  ' : '! ')
         + `Versions with ${type ? type + ' ' : ''}pack format ${input}: ${cleanObj(obj)}`

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.8
+*2021-10-03*
+- Changed CLI arguments `--help` and `--version` to override other arguments.
+- Fixed CLI argument `--version` not returning the current version.
+- Fixed command-line usage not working.
+
 ## 1.2.7
 *2021-10-03*
 - Fixed snapshots appearing malformed when using `getVersions()`.

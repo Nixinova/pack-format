@@ -1,10 +1,10 @@
 {
     "name": "pack-format",
-    "version": "1.2.7",
+    "version": "1.2.8",
     "description": "Returns the pack_format of any Minecraft version, including snapshots",
     "scripts": {
         "prepublish": "tsc",
-        "test": "tsc && node dist/test/test"
+        "test": "tsc && node test/test"
     },
     "keywords": [
         "minecraft",
@@ -14,13 +14,13 @@
         "data pack",
         "pack format"
     ],
-    "main": "dist/src/index.js",
+    "main": "dist/index.js",
     "bin": {
         "pack-format": "bin/index.js"
     },
     "files": [
         "bin/",
-        "dist/src/"
+        "dist/"
     ],
     "engines": {
         "node": ">=12"

@@ -19,13 +19,10 @@ const args = {
     latest: rawArgs.some(arg => /^-+L|^-+latest/.test(arg)),
     _: rawArgs.filter(arg => !arg.startsWith('-')),
 }
-const ver = args._[0]
+const ver = !args.help && !args.version && args._[0]
 
 if (ver) {
-    if (args.version) {
-        console.log(`pack-format v${VERSION}`)
-    }
-    else if (args.list) {
+    if (args.list) {
         if (Number.isNaN(ver)) console.error(`'${ver}' is not a valid pack format`)
         else if (Math.round(+ver) !== +ver) console.error(`'${ver}' is a version number, not a pack format`)
         else {
@@ -44,6 +41,9 @@ else if (args.latest) {
     const type = args.data ? 'data' : args.resource ? 'resource' : ''
     if (type) console.log(`The latest ${type} pack format version is ${LATEST[type]}.`)
     else console.log(`The latest pack format version is ${Math.max(LATEST.resource, LATEST.data)}.`)
+}
+else if (args.version) {
+    console.log(`pack-format ${VERSION}`)
 }
 if (args.help) {
     console.log(`\n${indent(1)}pack-format arguments:`)
