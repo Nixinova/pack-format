@@ -91,6 +91,16 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
 }
 
 /**
+ * @param version the version to look up
+ * @returns an object containing the resource and data pack formats for a given version
+ */
+function getPackFormats(version: string): Record<PackType, FormatResult> {
+    const resource = getPackFormat(version, 'resource')
+    const data = getPackFormat(version, 'data')
+    return { resource, data }
+}
+
+/**
  * Retrieve a list of applicable versions for a given pack format
  * @param format the pack format to look up
  * @param type the pack format type to return; either 'resource' or 'data'
@@ -129,6 +139,7 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
 }
 
 getPackFormat.getPackFormat = getPackFormat
+getPackFormat.getPackFormats = getPackFormats
 getPackFormat.getVersions = getVersions
 getPackFormat.LATEST = LATEST
 

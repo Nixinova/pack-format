@@ -1,5 +1,5 @@
-import { getPackFormat, getVersions, LATEST } from './index'
-const VERSION = require('../package.json').version;
+import { getPackFormat, getPackFormats, getVersions, LATEST } from './index'
+const VERSION = require('../package.json').version
 
 const indent = (n: number): string => ' '.repeat(n * 4)
 const log = function (arg: string, desc: string[], example: string): void {
@@ -33,8 +33,11 @@ if (ver) {
     else if (args.data) {
         console.log(`Data pack format of ${ver} is ${getPackFormat(ver, 'data')}`)
     }
-    else {
+    else if (args.resource) {
         console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource')}`)
+    }
+    else {
+        console.log(`Pack formats for ${ver} are`, getPackFormats(ver))
     }
 }
 else if (args.latest) {
@@ -49,7 +52,7 @@ if (args.help) {
     console.log(`\n${indent(1)}pack-format arguments:`)
     log(
         '<version>',
-        ['Retrieve the pack format of any Minecraft version.', 'Defaults to resource pack format when applicable.'],
+        ['Retrieve the resource and data pack formats of any Minecraft version.'],
         'pack-format 1.16',
     )
     log(

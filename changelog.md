@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+- Added function `getPackFormats(version: string): object` to retrieve both the resource and data pack formats of a given version.
+- Changed the default CLI command to show both pack formats if the type is unspecified instead of defaulting to the resource pack format.
+
 ## 1.2.8
 *2021-10-03*
 - Changed CLI arguments `--help` and `--version` to override other arguments.
