@@ -42,7 +42,7 @@ getVersions(6, 'data') // { releases: { min: '1.15.x', max: '1.16.1' }, snapshot
 
 ### Command line
 
-Retrieve the `pack_format` of a given Minecraft version:
+Retrieve both the resource and data `pack_format` of a given Minecraft version:
 ```sh
 pack-format [--data|--resource] <version>
 ```
@@ -55,7 +55,7 @@ pack-format --list [--data|--resource] <pack_format>
 Examples:
 ```sh
 > pack-format 1.14.4
-Pack format of 1.14.4 is 4
+Pack formats for 1.14.4 are { resource: 4, data: 4 }
 
 > pack-format --resource 1.16.2-pre1
 Resource pack format of 1.16.2-pre1 is 5

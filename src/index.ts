@@ -62,6 +62,7 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         }
         return undefined
     }
+    if (!version.includes('.')) return undefined
 
     // Release //
 

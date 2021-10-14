@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Fixed a crash occurring when malformed snapshot versions are inputted.
+
 ## 1.3.0
 *2021-10-05*
 - Added function `getPackFormats(version: string): object` to retrieve both the resource and data pack formats of a given version.
