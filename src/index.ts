@@ -51,13 +51,11 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         if (SPECIAL[format].includes(version)) return +format
     }
 
-    if (!version.includes('.') && !/\d{2}w\d{2}\w/.test(version)) return undefined
-
     // Snapshot //
-    if (/^\d\d[w]\d\d[a-z]$/.test(version)) {
+    if (/^\d{2}w\d{2}[a-z]?$/.test(version)) {
         const getId = (snap: string) => +snap.replace(/[^\d]/g, '')
         for (const testSnap of Object.keys(START_SNAPSHOTS).reverse()) {
-            if (getId(version) < getId(testSnap)) continue;
+            if (getId(version) < getId(testSnap)) continue
             return START_SNAPSHOTS[testSnap as SnapshotName][type]
         }
         return undefined
