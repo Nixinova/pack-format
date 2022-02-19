@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.3.1
+*2022-02-19*
 - Fixed a crash occurring when malformed snapshot versions are inputted.
 - Fixed snapshot versions not returning results when the final letter is missing.
 - Updated data pack format to `9`.
