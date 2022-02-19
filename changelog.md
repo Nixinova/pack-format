@@ -3,6 +3,7 @@
 ## Next
 - Fixed a crash occurring when malformed snapshot versions are inputted.
 - Fixed snapshot versions not returning results when the final letter is missing.
+- Updated data pack format to `9`.
 
 ## 1.3.0
 *2021-10-05*

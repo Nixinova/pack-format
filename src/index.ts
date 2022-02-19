@@ -2,7 +2,7 @@ import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } fro
 
 // Data sets //
 
-const LATEST = { resource: 8, data: 8 }
+const LATEST = { resource: 8, data: 9 }
 
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.6.x': { resource: 1, data: undefined },
@@ -13,6 +13,7 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.16.2': { resource: 6, data: 6 },
     '1.17.x': { resource: 7, data: 7 },
     '1.18.x': { resource: 8, data: 8 },
+    '1.18.2': { resource: 8, data: 9 },
     '1.19.x': { resource: undefined, data: undefined },
 }
 
@@ -28,6 +29,7 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '20w46a': { resource: 7, data: 7 },
     '21w37a': { resource: 7, data: 8 },
     '21w39a': { resource: 8, data: 8 },
+    //1.18.2: { resource: 8, data: 9 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
