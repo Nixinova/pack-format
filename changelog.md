@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+- Changed `--latest` output to display both resource and data pack formats instead of just the highest one.
+- Changed `--list` output to have an explanatory header line.
+
 ## 1.3.1
 *2022-02-19*
 - Fixed a crash occurring when malformed snapshot versions are inputted.

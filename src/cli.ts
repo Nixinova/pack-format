@@ -27,6 +27,7 @@ if (ver) {
         else if (Math.round(+ver) !== +ver) console.error(`'${ver}' is a version number, not a pack format`)
         else {
             const type = args.data ? 'data' : 'resource'
+            console.log(`Versions for ${type} pack format ${ver}:`)
             console.log(getVersions(+ver, type))
         }
     }
@@ -43,7 +44,7 @@ if (ver) {
 else if (args.latest) {
     const type = args.data ? 'data' : args.resource ? 'resource' : ''
     if (type) console.log(`The latest ${type} pack format version is ${LATEST[type]}.`)
-    else console.log(`The latest pack format version is ${Math.max(LATEST.resource, LATEST.data)}.`)
+    else console.log('The latest pack format versions are', LATEST)
 }
 else if (args.version) {
     console.log(`pack-format ${VERSION}`)
@@ -67,12 +68,12 @@ if (args.help) {
     )
     log(
         '(--list|-l) [(--data|-d)|(--resource|-r)] <pack_format>',
-        ['Retrieve a list of versions attached to a specific pack format.'],
+        ['Retrieve a list of versions attached to a specific pack format.', 'Defaults to --resource.'],
         'pack-format --list -d 6',
     )
     log(
         '(--latest|-L) [(--data|-d)|(--resource|-r)]',
-        ['Retrieve the latest pack format.'],
+        ['Retrieve the latest pack formats.'],
         'pack-format --latest --resource',
     )
 }
