@@ -3,6 +3,8 @@
 ## Next
 - Changed `--latest` output to display both resource and data pack formats instead of just the highest one.
 - Changed `--list` output to have an explanatory header line.
+- Updated resource pack format to `9`.
+- Updated data pack format to `10`.
 
 ## 1.3.1
 *2022-02-19*

@@ -29,7 +29,7 @@ const packFormat = require('pack-format')
 packFormat('1.14.4') // 4
 packFormat('1.16.2-pre1', 'resource') // 5
 packFormat('20w45a', 'data') // 6
-packFormat.LATEST.data // 8
+packFormat.LATEST.data // 10
 ```
 
 Retrieve a list of versions corresponding to a specific `pack_format`, again optionally specifying resource/data pack version.
@@ -43,17 +43,17 @@ getVersions(6, 'data') // { releases: { min: '1.15.x', max: '1.16.1' }, snapshot
 ### Command line
 
 Retrieve both the resource and data `pack_format` of a given Minecraft version:
-```sh
+```console
 pack-format [--data|--resource] <version>
 ```
 
 Retrieve a list of corresponding Minecraft versions:
-```sh
+```console
 pack-format --list [--data|--resource] <pack_format>
 ```
 
 Examples:
-```sh
+```console
 > pack-format 1.14.4
 Pack formats for 1.14.4 are { resource: 4, data: 4 }
 
