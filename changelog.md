@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.3.2
+*2022-03-17*
 - Changed `--latest` output to display both resource and data pack formats instead of just the highest one.
 - Changed `--list` output to have an explanatory header line.
 - Updated resource pack format to `9`.
