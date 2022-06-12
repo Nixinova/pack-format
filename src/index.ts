@@ -14,7 +14,8 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.17.x': { resource: 7, data: 7 },
     '1.18.x': { resource: 8, data: 8 },
     '1.18.2': { resource: 8, data: 9 },
-    '1.19.x': { resource: undefined, data: undefined },
+    '1.19.x': { resource: 9, data: 10 },
+    '1.20.x': { resource: undefined, data: undefined },
 }
 
 const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5

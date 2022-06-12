@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Updated pack format data to 1.19.
+
 ## 1.3.2
 *2022-03-17*
 - Changed `--latest` output to display both resource and data pack formats instead of just the highest one.
