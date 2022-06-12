@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.3.3
+*2022-06-13*
 - Added an error message when using `--list` without providing a pack format.
 - Changed CLI arguments to be parsed in a more intuitive order.
 - Updated pack format data to 1.19.
