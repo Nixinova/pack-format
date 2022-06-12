@@ -19,36 +19,9 @@ const args = {
     latest: rawArgs.some(arg => /^-+L|^-+latest/.test(arg)),
     _: rawArgs.filter(arg => !arg.startsWith('-')),
 }
-const ver = !args.help && !args.version && args._[0]
+const ver = args._[0]
 
-if (ver) {
-    if (args.list) {
-        if (Number.isNaN(ver)) console.error(`'${ver}' is not a valid pack format`)
-        else if (Math.round(+ver) !== +ver) console.error(`'${ver}' is a version number, not a pack format`)
-        else {
-            const type = args.data ? 'data' : 'resource'
-            console.log(`Versions for ${type} pack format ${ver}:`)
-            console.log(getVersions(+ver, type))
-        }
-    }
-    else if (args.data) {
-        console.log(`Data pack format of ${ver} is ${getPackFormat(ver, 'data')}`)
-    }
-    else if (args.resource) {
-        console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource')}`)
-    }
-    else {
-        console.log(`Pack formats for ${ver} are`, getPackFormats(ver))
-    }
-}
-else if (args.latest) {
-    const type = args.data ? 'data' : args.resource ? 'resource' : ''
-    if (type) console.log(`The latest ${type} pack format version is ${LATEST[type]}.`)
-    else console.log('The latest pack format versions are', LATEST)
-}
-else if (args.version) {
-    console.log(`pack-format ${VERSION}`)
-}
+// Print the help message
 if (args.help) {
     console.log(`\n${indent(1)}pack-format arguments:`)
     log(
@@ -64,16 +37,59 @@ if (args.help) {
     log(
         '(--resource|-r) <version>',
         ['Retrieve the resource pack format in particular when applicable.'],
-        'pack-format -r 20w45a',
+        'pack-format --resource 20w45a',
     )
     log(
         '(--list|-l) [(--data|-d)|(--resource|-r)] <pack_format>',
         ['Retrieve a list of versions attached to a specific pack format.', 'Defaults to --resource.'],
-        'pack-format --list -d 6',
+        'pack-format --list --data 6',
     )
     log(
         '(--latest|-L) [(--data|-d)|(--resource|-r)]',
         ['Retrieve the latest pack formats.'],
         'pack-format --latest --resource',
     )
+}
+// Print the current npm version
+else if (args.version) {
+    console.log(`pack-format ${VERSION}`)
+}
+// List versions of a given pack format
+else if (args.list) {
+    if (!ver) {
+        console.error(`No pack format has been given`)
+    }
+    else if (Number.isNaN(ver)) {
+        console.error(`'${ver}' is not a valid pack format`)
+    }
+    else if (/^\d+$/.test(ver)) {
+        console.error(`'${ver}' is a version number, not a pack format`)
+    }
+    else {
+        const type = args.data ? 'data' : 'resource'
+        console.log(`Versions for ${type} pack format ${ver}:`)
+        console.log(getVersions(+ver, type))
+    }
+}
+// List the latest pack formats
+else if (args.latest) {
+    const type = args.data ? 'data' : args.resource ? 'resource' : ''
+    if (type) {
+        console.log(`The latest ${type} pack format version is ${LATEST[type]}.`)
+    }
+    else {
+        console.log('The latest pack format versions are', LATEST)
+    }
+}
+// Print the pack format of a given version
+else if (ver) {
+    if (args.data) {
+        console.log(`Data pack format of ${ver} is ${getPackFormat(ver, 'data')}`)
+    }
+    else if (args.resource) {
+        console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource')}`)
+    }
+    else {
+        console.log(`Pack formats for ${ver} are`, getPackFormats(ver))
+    }
 }
