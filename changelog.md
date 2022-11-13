@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Updated pack format data to 1.19.3.
+
 ## 1.3.3
 *2022-06-13*
 - Added an error message when using `--list` without providing a pack format.
