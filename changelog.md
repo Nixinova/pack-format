@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next
+- Fixed `--list` CLI option not working.
 - Updated pack format data to 1.19.3.
 
 ## 1.3.3

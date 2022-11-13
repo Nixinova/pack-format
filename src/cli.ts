@@ -62,7 +62,7 @@ else if (args.list) {
     else if (Number.isNaN(ver)) {
         console.error(`'${ver}' is not a valid pack format`)
     }
-    else if (/^\d+$/.test(ver)) {
+    else if (!/^\d+$/.test(ver)) {
         console.error(`'${ver}' is a version number, not a pack format`)
     }
     else {
