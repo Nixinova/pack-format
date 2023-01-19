@@ -16,6 +16,7 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.18.2': { resource: 8, data: 9 },
     '1.19.x': { resource: 9, data: 10 },
     '1.19.3': { resource: 12, data: 10 },
+    '1.19.4': { resource: 12, data: 11 },
     '1.20.x': { resource: undefined, data: undefined },
 }
 
@@ -34,6 +35,7 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '22w11a': { resource: 9, data: 10 },
     '22w42a': { resource: 11, data: 10 },
     '22w45a': { resource: 12, data: 10 },
+    '23w03a': { resource: 12, data: 11 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 

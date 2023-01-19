@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Updated data pack format to `11`.
+
 ## 1.3.4
 *2022-11-13*
 - Fixed `--list` CLI option not working.
