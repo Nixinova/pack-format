@@ -1,7 +1,9 @@
 # Changelog
 
-## Next
-- Updated data pack format to `11`.
+## 1.3.5
+*2023-04-06*
+- Updated data pack format to `13`.
+- Updated resource pack format to `14`.
 
 ## 1.3.4
 *2022-11-13*
