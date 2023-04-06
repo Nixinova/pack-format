@@ -16,7 +16,7 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.18.2': { resource: 8, data: 9 },
     '1.19.x': { resource: 9, data: 10 },
     '1.19.3': { resource: 12, data: 10 },
-    '1.19.4': { resource: 12, data: 11 },
+    '1.19.4': { resource: 12, data: 12 },
     '1.20.x': { resource: undefined, data: undefined },
 }
 
@@ -36,6 +36,9 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '22w42a': { resource: 11, data: 10 },
     '22w45a': { resource: 12, data: 10 },
     '23w03a': { resource: 12, data: 11 },
+    '23w06a': { resource: 12, data: 12 },
+    '23w12a': { resource: 13, data: 13 },
+    '23w14a': { resource: 14, data: 13 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
@@ -81,6 +84,7 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         // Special cases for specific development versions
         if (version.includes('1.16.2-pre')) return 5
         if (version.includes('1.18-e')) return 7
+        if (version.includes('1.19.4-pre')) return { data: 12, resource: 13 }[type]
         // Default to the parent version
         version = version.replace(/-.+$/, '')
     }
