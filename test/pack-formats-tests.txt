@@ -1,22 +1,29 @@
-###
+= pack-format tests =
+
 Line format:
   "<version name>" (<type>) <pack_format>
+
+All invalid lines are ignored.
+
 Types:
   (-) = default (resource)
   (r) = resource
   (d) = data
-###
+
+== Tests ==
+
+=== Basic ==
 
 "" (-) none
 "invalid" (-) none
 "1" (-) none
+
+=== Releases ===
+
 "1.1" (-) none
 "1.6" (-) 1
 "1.9" (-) 2
 "1.16.1" (-) 5
-"1.16.2-pre1" (-) 5
-"1.16.2 pre1" (-) 5
-"1.16.2 pre-release 1" (-) 5
 "1.30" (-) none
 "1.16.3" (-) 6
 "1.18" (-) 8
@@ -29,7 +36,16 @@ Types:
 "1.19.3" (d) 10
 "1.19.4" (d) 12
 "1.19.4" (r) 12
+
+=== Pre-releases ===
+
+"1.16.2-pre1" (-) 5
+"1.16.2 pre1" (-) 5
+"1.16.2 pre-release 1" (-) 5
 "1.19.4-pre1" (r) 13
+
+=== Snapshots ===
+
 "11w50a" (-) none
 "13w23a" (-) none
 "13w24a" (-) 1
@@ -53,6 +69,9 @@ Types:
 "23w06a" (d) 12
 "23w13a" (r) 13
 "23w14a" (r) 14
+
+=== Special cases ===
+
 "combat3" (-) 4
 "1.18-exp1" (-) 7
 "1.18-es2" (-) 7
