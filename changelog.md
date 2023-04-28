@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.3.6
+*2023-04-28*
 - Updated data pack format to `14`.
 - Updated resource pack format to `15`.
 
