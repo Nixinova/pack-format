@@ -1,8 +1,10 @@
+const fs = require('fs')
+const path = require('path')
 const { getPackFormat: packFormat, getVersions } = require('../dist/index')
 
 let [total, passed, failed] = [0, 0, 0]
 
-function testPackFormat([input, type], expected) {
+function testPackFormat(input, type, expected) {
     const ver = packFormat(input, type)
     const pass = ver === expected
     if (pass) passed++
@@ -10,8 +12,7 @@ function testPackFormat([input, type], expected) {
     total++
     console.log(
         (pass ? '  ' : '! ')
-        + (type ? type[0].toUpperCase() + type.substr(1) + ' p' : 'P')
-        + `ack format of ${input} is ${ver}`
+        + `The ${type ? type + ' ' : ''}pack format of '${input}' is ${ver}`
         + (!pass ? ` (should be ${expected})` : '')
     )
 }
@@ -30,56 +31,21 @@ function testVersions([input, type], expected) {
     )
 }
 
-testPackFormat([''], undefined)
-testPackFormat(['invalid'], undefined)
-testPackFormat(['1'], undefined)
-testPackFormat(['1.1'], undefined)
-testPackFormat(['1.6'], 1)
-testPackFormat(['1.9'], 2)
-testPackFormat(['1.16.1'], 5)
-testPackFormat(['1.16.2-pre1'], 5)
-testPackFormat(['1.16.2 pre1'], 5)
-testPackFormat(['1.16.2 pre-release 1'], 5)
-testPackFormat(['1.30'], undefined)
-testPackFormat(['1.16.3'], 6)
-testPackFormat(['1.18'], 8)
-testPackFormat(['1.18.1', 'data'], 8)
-testPackFormat(['1.18.2', 'data'], 9)
-testPackFormat(['1.19', 'resource'], 9)
-testPackFormat(['1.19', 'data'], 10)
-testPackFormat(['1.19.2', 'resource'], 9)
-testPackFormat(['1.19.3', 'resource'], 12)
-testPackFormat(['1.19.3', 'data'], 10)
-testPackFormat(['1.19.4', 'data'], 12)
-testPackFormat(['1.19.4', 'resource'], 12)
-testPackFormat(['1.19.4-pre1', 'resource'], 13)
-testPackFormat(['11w50a'], undefined)
-testPackFormat(['13w23a'], undefined)
-testPackFormat(['13w24a'], 1)
-testPackFormat(['16w31a'], 2)
-testPackFormat(['16w32a'], 3)
-testPackFormat(['20w30a'], 5)
-testPackFormat(['20w45a'], 7)
-testPackFormat(['20w45a', 'resource'], 7)
-testPackFormat(['20w45a', 'data'], 6)
-testPackFormat(['20w46a', 'data'], 7)
-testPackFormat(['21w37a'], 7)
-testPackFormat(['21w37a', 'resource'], 7)
-testPackFormat(['21w37a', 'data'], 8)
-testPackFormat(['21w39a', 'resource'], 8)
-testPackFormat(['22w11a', 'resource'], 9)
-testPackFormat(['22w11a', 'data'], 10)
-testPackFormat(['22w42a', 'resource'], 11)
-testPackFormat(['22w44a', 'resource'], 11)
-testPackFormat(['22w45a', 'resource'], 12)
-testPackFormat(['23w03a', 'data'], 11)
-testPackFormat(['23w06a', 'data'], 12)
-testPackFormat(['23w13a', 'resource'], 13)
-testPackFormat(['23w14a', 'resource'], 14)
-testPackFormat(['combat3'], 4)
-testPackFormat(['1.18-exp1'], 7)
-testPackFormat(['1.18-es2'], 7)
-testPackFormat(['1.18 experimental snapshot 3'], 7)
+function testPackFormats() {
+    const formatsTests = fs.readFileSync(path.join(__dirname, 'pack-formats-tests.txt'), { 'encoding': 'utf-8' })
+    for (const line of formatsTests.split('\n')) {
+        const parts = line.match(/^"(.*)" \((.)\) (\w+)/)
+        if (!parts)
+            continue
+
+        const input = parts[1] || "[blank]"
+        const type = { 'r': 'resource', 'd': 'data', '-': undefined }[parts[2]]
+        const result = parts[3] == 'none' ? undefined : +parts[3]
+        testPackFormat(input, type, result)
+    }
+}
+
+testPackFormats()
 
 testVersions([3, 'data'], { releases: { min: '', max: '' }, snapshots: { min: '', max: '' } })
 testVersions([10, 'resource'], { releases: { min: '', max: '' }, snapshots: { min: '', max: '' } })
