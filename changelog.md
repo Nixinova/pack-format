@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Updated pack format data to 1.20.
+
 ## 1.3.6
 *2023-04-28*
 - Updated data pack format to `14`.

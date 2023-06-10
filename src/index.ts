@@ -17,7 +17,8 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.19.x': { resource: 9, data: 10 },
     '1.19.3': { resource: 12, data: 10 },
     '1.19.4': { resource: 12, data: 12 },
-    '1.20.x': { resource: undefined, data: undefined },
+    '1.20.x': { resource: 15, data: 15 },
+    '1.21.x': { resource: undefined, data: undefined },
 }
 
 const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5
@@ -41,6 +42,7 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '23w14a': { resource: 14, data: 13 },
     '23w16a': { resource: 14, data: 14 },
     '23w17a': { resource: 15, data: 14 },
+    '23w18a': { resource: 15, data: 15 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
