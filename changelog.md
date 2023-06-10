@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.3.7
+*2023-06-11*
 - Updated pack format data to 1.20.
 
 ## 1.3.6
