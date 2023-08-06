@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+- Fixed latest pack format being outdated.
+- Updated resource and data pack formats to `16`.
+
 ## 1.3.7
 *2023-06-11*
 - Updated pack format data to 1.20.

@@ -76,6 +76,8 @@ Types:
 "23w17a" (d) 14
 "23w18a" (r) 15
 "23w18a" (d) 15
+"23w31a" (r) 16
+"23w31a" (d) 16
 
 === Special cases ===
 
