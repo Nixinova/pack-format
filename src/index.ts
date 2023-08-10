@@ -2,8 +2,6 @@ import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } fro
 
 // Data sets //
 
-const LATEST = { resource: 16, data: 16 }
-
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.6.x': { resource: 1, data: undefined },
     '1.9.x': { resource: 2, data: undefined },
@@ -21,6 +19,9 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.20.2': { resource: 17, data: 17 },
     '1.21.x': { resource: undefined, data: undefined },
 }
+
+const maxFormat = (type: 'resource' | 'data') => Math.max(...Object.values(START_RELEASES).map(release => release[type] ?? 0));
+const LATEST = { resource: maxFormat('resource'), data: maxFormat('data') };
 
 const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5
 const fauxCurrentSnapshot: SnapshotName = `${year}w${maxWeek.toString().padStart(2, '0')}a`
