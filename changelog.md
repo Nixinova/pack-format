@@ -1,7 +1,7 @@
 # Changelog
 
 ## Next
-- Changed the CLI output of `pack-format <version>`.
+- Changed the CLI output to display both resource and data pack formats on separate lines.
 - Updated resource and data pack formats to `17`.
 
 ## 1.3.8

@@ -74,11 +74,11 @@ else if (args.list) {
 // List the latest pack formats
 else if (args.latest) {
     const type = args.data ? 'data' : args.resource ? 'resource' : ''
-    if (type) {
-        console.log(`The latest ${type} pack format version is ${LATEST[type]}.`)
+    if (!args.resource) {
+        console.log(`The latest data pack format version is ${LATEST.data}.`)
     }
-    else {
-        console.log('The latest pack format versions are', LATEST)
+    if (!args.data) {
+        console.log(`The latest resource pack format version is ${LATEST.resource}.`)
     }
 }
 // Print the pack format of a given version
