@@ -2,6 +2,7 @@
 
 ## Next
 - Changed the CLI output of `pack-format <version>`.
+- Updated resource and data pack formats to `17`.
 
 ## 1.3.8
 *2023-08-06*
