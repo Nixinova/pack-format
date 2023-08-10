@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Changed the CLI output of `pack-format <version>`.
+
 ## 1.3.8
 *2023-08-06*
 - Fixed latest pack format being outdated.

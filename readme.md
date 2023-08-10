@@ -55,7 +55,8 @@ pack-format --list [--data|--resource] <pack_format>
 Examples:
 ```console
 > pack-format 1.14.4
-Pack formats for 1.14.4 are { resource: 4, data: 4 }
+Resource pack format of 1.14.4 is 4
+Data pack format of 1.14.4 is 4
 
 > pack-format --resource 1.16.2-pre1
 Resource pack format of 1.16.2-pre1 is 5
