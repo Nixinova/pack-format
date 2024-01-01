@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.3.10
+*2024-01-01*
 - Updated resource and data pack formats to `18`.
 
 ## 1.3.9
