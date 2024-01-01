@@ -16,7 +16,7 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.19.3': { resource: 12, data: 10 },
     '1.19.4': { resource: 12, data: 12 },
     '1.20.x': { resource: 15, data: 15 },
-    '1.20.2': { resource: 17, data: 17 },
+    '1.20.2': { resource: 18, data: 18 },
     '1.21.x': { resource: undefined, data: undefined },
 }
 

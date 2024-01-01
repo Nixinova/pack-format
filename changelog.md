@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Updated resource and data pack formats to `18`.
+
 ## 1.3.9
 *2023-08-10*
 - Changed the CLI output to display both resource and data pack formats on separate lines when no type is specified.
