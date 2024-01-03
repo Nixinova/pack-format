@@ -132,14 +132,31 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
     }
     if (!format || format > LATEST[type] || (type === 'data' && format < 4)) return output
 
+    const getVersionBelow = function (ver: VersionName, minVer: VersionName): VersionName {
+        const formatVer = ([x, y, z]: Array<string | number>) => [x, y, z].join('.') as VersionName
+        const [minX, minY, minZ] = minVer.split('.')
+        const [x, y, z] = ver.split('.')
+        // (1.X.a) vs 1.X.b
+        if (minY === y) {
+            if (z === 'x') return formatVer([x, y, z])
+            else return formatVer([x, y, +z - 1])
+        }
+        // (1.X.a) vs 1.Y.b
+        else {
+            if (z === 'x') return formatVer([x, +y - 1, z])
+            else return formatVer([x, y, +z - 1])
+        }
+    }
+
     // Min and max releases
     const startReleases = Object.entries(START_RELEASES)
     const relIndex = startReleases.findIndex(([, data]) => data[type] === format)
     if (relIndex >= 0) {
-        const minRelease = startReleases[relIndex][0]
-        const maxRelease = startReleases[relIndex + 1][0].replace(/\.(\d+)\./, (_, major) => `.${major - 1}.`)
-        output.releases.min = minRelease as VersionName
-        output.releases.max = maxRelease as VersionName
+        const lastWithFormat = startReleases.find(([, obj]) => (obj[type] ?? 0) > format) ?? []
+        const minRelease = startReleases[relIndex][0] as VersionName
+        const maxRelease = getVersionBelow(lastWithFormat[0] as VersionName, minRelease)
+        output.releases.min = minRelease
+        output.releases.max = maxRelease
     }
 
     // Min and max snapshots

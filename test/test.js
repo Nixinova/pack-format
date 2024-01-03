@@ -52,6 +52,8 @@ testVersions([10, 'resource'], { releases: { min: '', max: '' }, snapshots: { mi
 testVersions([6, 'resource'], { releases: { min: '1.16.x', max: '1.16.x' }, snapshots: { min: '', max: '' } })
 testVersions([6, 'data'], { releases: { min: '1.16.x', max: '1.16.x' }, snapshots: { min: '20w45a', max: '20w45a' } })
 testVersions([7, 'resource'], { releases: { min: '1.17.x', max: '1.17.x' }, snapshots: { min: '20w45a', max: '21w38a' } })
+testVersions([10, 'data'], { releases: { min: '1.19.x', max: '1.19.3' }, snapshots: { min: '22w11a', max: '23w02a' } })
 testVersions([11, 'resource'], { releases: { min: '', max: '' }, snapshots: { min: '22w42a', max: '22w44a' } })
+testVersions([15, 'data'], { releases: { min: '1.20.x', max: '1.20.1' }, snapshots: { min: '23w18a', max: '23w30a' } })
 
 console.log(`\nRan ${total} tests | ${passed} passed | ${failed} failed`)

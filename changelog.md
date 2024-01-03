@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next
+- Fixed incorrect maximum versions being returned in the output of `--list`.
 - Fixed snapshots being incorrectly formatted in the output of `--list`.
 
 ## 1.3.10
