@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.3.11
+*2024-01-03*
 - Fixed incorrect maximum versions being returned in the output of `--list`.
 - Fixed snapshots being incorrectly formatted in the output of `--list`.
 
