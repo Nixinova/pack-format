@@ -149,7 +149,7 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
         const minIndex = snapIndices[0]
         const maxIndex = snapIndices[snapIndices.length - 1]
         const maxSnap = startSnaps[minIndex][0]
-        const minSnap = startSnaps[maxIndex + 1][0].replace(/(\d+)\w$/, (_, n) => `${n - 1}a`)
+        const minSnap = startSnaps[maxIndex + 1][0].replace(/(\d+)\w$/, (_, n) => `${(n - 1).toString().padStart(2, '0')}a`)
         output.snapshots.min = maxSnap as SnapshotName
         output.snapshots.max = minSnap as SnapshotName
     }
