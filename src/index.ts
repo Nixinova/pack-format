@@ -17,6 +17,8 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.19.4': { resource: 12, data: 12 },
     '1.20.x': { resource: 15, data: 15 },
     '1.20.2': { resource: 18, data: 18 },
+    '1.20.3': { resource: 22, data: 26 },
+    '1.20.5': { resource: undefined, data: undefined },
     '1.21.x': { resource: undefined, data: undefined },
 }
 
@@ -47,13 +49,30 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '23w18a': { resource: 15, data: 15 },
     '23w31a': { resource: 16, data: 16 },
     '23w32a': { resource: 17, data: 17 },
+    '23w40a': { resource: 18, data: 19 },
+    '23w41a': { resource: 18, data: 20 },
+    '23w42a': { resource: 19, data: 21 },
+    '23w43a': { resource: 20, data: 22 },
+    '23w44a': { resource: 20, data: 23 },
+    '23w45a': { resource: 21, data: 24 },
+    '23w46a': { resource: 21, data: 25 },
+    '23w51a': { resource: 22, data: 27 },
+    '24w03a': { resource: 24, data: 28 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
-const SPECIAL: Record<number, string[]> = {
-    4: ['combat1', 'combat2', 'combat3'],
-    5: ['combat4', 'combat5'],
-    6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
+const SPECIAL: Record<PackType, Record<number, string[]>> = {
+    resource: {
+        4: ['combat1', 'combat2', 'combat3'],
+        5: ['combat4', 'combat5'],
+        6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
+        17: ['1.20.2-pre1'],
+    },
+    data: {
+        4: ['combat1', 'combat2', 'combat3'],
+        5: ['combat4', 'combat5'],
+        6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
+    },
 }
 
 /**
@@ -66,8 +85,8 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
     version = version.toString().toLowerCase().trim()
 
     // Special //
-    for (const format in SPECIAL) {
-        if (SPECIAL[format].includes(version)) return +format
+    for (const format in SPECIAL[type]) {
+        if (SPECIAL[type][format].includes(version)) return +format
     }
 
     // Snapshot //

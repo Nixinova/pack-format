@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+- Updated resource pack format to `24`.
+- Updated data pack format to `26`.
+
 ## 1.3.11
 *2024-01-03*
 - Fixed incorrect maximum versions being returned in the output of `--list`.
