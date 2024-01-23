@@ -22,9 +22,6 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.21.x': { resource: undefined, data: undefined },
 }
 
-const maxFormat = (type: 'resource' | 'data') => Math.max(...Object.values(START_RELEASES).map(release => release[type] ?? 0));
-const LATEST = { resource: maxFormat('resource'), data: maxFormat('data') };
-
 const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5
 const fauxCurrentSnapshot: SnapshotName = `${year}w${maxWeek.toString().padStart(2, '0')}a`
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
@@ -74,6 +71,9 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
     },
 }
+
+const maxFormat = (type: 'resource' | 'data') => Math.max(...Object.values(START_SNAPSHOTS).map(release => release[type] ?? 0));
+const LATEST = { resource: maxFormat('resource'), data: maxFormat('data') };
 
 /**
  * @param version the version to look up

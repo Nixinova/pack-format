@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next
+- Fixed the result of `--latest` not always returning the very latest version.
 - Updated resource pack format to `24`.
 - Updated data pack format to `26`.
 
