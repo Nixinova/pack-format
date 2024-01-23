@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Changed the CLI result to say 'not present' instead of 'not known' for versions that do not use a pack format.
+
 ## 1.3.12
 *2024-01-23*
 - Changed the CLI result to say 'not known' instead of 'undefined' for versions without associated pack formats.

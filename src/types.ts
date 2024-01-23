@@ -4,7 +4,7 @@ export type SnapshotName = `${number}w${string}${Lowercase<string>}`
 export type PackType = 'resource' | 'data'
 export type PackMap = Record<PackType, FormatResult>
 
-export type FormatResult = number | undefined
+export type FormatResult = number | null | undefined
 
 export interface VersionsResult {
     releases: { min: VersionName | '', max: VersionName | '' },

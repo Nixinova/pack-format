@@ -3,9 +3,10 @@ import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } fro
 // Data sets //
 
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
-    '1.6.x': { resource: 1, data: undefined },
-    '1.9.x': { resource: 2, data: undefined },
-    '1.11.x': { resource: 3, data: undefined },
+    '1.0.x': { resource: null, data: null },
+    '1.6.x': { resource: 1, data: null },
+    '1.9.x': { resource: 2, data: null },
+    '1.11.x': { resource: 3, data: null },
     '1.13.x': { resource: 4, data: 4 },
     '1.15.x': { resource: 5, data: 5 },
     '1.16.2': { resource: 6, data: 6 },
@@ -25,9 +26,9 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
 const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5
 const fauxCurrentSnapshot: SnapshotName = `${year}w${maxWeek.toString().padStart(2, '0')}a`
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
-    '13w24a': { resource: 1, data: undefined },
-    '15w31a': { resource: 2, data: undefined },
-    '16w32a': { resource: 3, data: undefined },
+    '13w24a': { resource: 1, data: null },
+    '15w31a': { resource: 2, data: null },
+    '16w32a': { resource: 3, data: null },
     '17w48a': { resource: 4, data: 4 },
     '20w06a': { resource: 5, data: 5 },
     '20w45a': { resource: 7, data: 6 },

@@ -1,4 +1,5 @@
 import { getPackFormat, getPackFormats, getVersions, LATEST } from './index'
+import { FormatResult } from './types'
 const VERSION = require('../package.json').version
 
 const indent = (n: number): string => ' '.repeat(n * 4)
@@ -82,10 +83,13 @@ else if (args.latest) {
 }
 // Print the pack format of a given version
 else if (ver) {
+    const formatResult = (result: FormatResult): string => (result + '').replace('null', 'not present').replace('undefined', 'not known')
     if (!args.resource) {
-        console.log(`Data pack format of ${ver} is ${getPackFormat(ver, 'data') ?? 'not known'}`)
+        const result = formatResult(getPackFormat(ver, 'data'));
+        console.log(`Data pack format of ${ver} is ${result}`)
     }
     if (!args.data) {
-        console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource') ?? 'not known'}`)
+        const result = formatResult(getPackFormat(ver, 'resource'));
+        console.log(`Resource pack format of ${ver} is ${result}`)
     }
 }
