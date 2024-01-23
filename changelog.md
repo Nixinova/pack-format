@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next
+- Changed the CLI result to say 'not known' instead of 'undefined' for versions without associated pack formats.
 - Fixed the result of `--latest` not always returning the very latest version.
 - Updated resource pack format to `24`.
 - Updated data pack format to `26`.

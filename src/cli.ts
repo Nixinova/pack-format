@@ -83,9 +83,9 @@ else if (args.latest) {
 // Print the pack format of a given version
 else if (ver) {
     if (!args.resource) {
-        console.log(`Data pack format of ${ver} is ${getPackFormat(ver, 'data')}`)
+        console.log(`Data pack format of ${ver} is ${getPackFormat(ver, 'data') ?? 'not known'}`)
     }
     if (!args.data) {
-        console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource')}`)
+        console.log(`Resource pack format of ${ver} is ${getPackFormat(ver, 'resource') ?? 'not known'}`)
     }
 }
