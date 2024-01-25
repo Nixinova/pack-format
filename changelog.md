@@ -2,13 +2,14 @@
 
 ## Next
 - Changed the CLI result to say 'not present' instead of 'not known' for versions that do not use a pack format.
+- Updated data back format to `29`.
 
 ## 1.3.12
 *2024-01-23*
 - Changed the CLI result to say 'not known' instead of 'undefined' for versions without associated pack formats.
 - Fixed the result of `--latest` not always returning the very latest version.
 - Updated resource pack format to `24`.
-- Updated data pack format to `26`.
+- Updated data pack format to `28`.
 
 ## 1.3.11
 *2024-01-03*
