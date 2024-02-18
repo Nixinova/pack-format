@@ -57,6 +57,9 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '23w51a': { resource: 22, data: 27 },
     '24w03a': { resource: 24, data: 28 },
     '24w04a': { resource: 24, data: 29 },
+    '24w05a': { resource: 25, data: 30 },
+    '24w06a': { resource: 26, data: 31 },
+    '24w07a': { resource: 26, data: 32 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 

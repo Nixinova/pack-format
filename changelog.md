@@ -2,7 +2,8 @@
 
 ## Next
 - Changed the CLI result to say 'not present' instead of 'not known' for versions that do not use a pack format.
-- Updated data back format to `29`.
+- Updated resource pack format to `26`.
+- Updated data pack format to `32`.
 
 ## 1.3.12
 *2024-01-23*
