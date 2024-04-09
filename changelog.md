@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Updated resource pack format to `31`.
+
 ## 1.3.13
 *2024-03-15*
 - Changed the CLI result to say 'not present' instead of 'not known' for versions that do not use a pack format.
