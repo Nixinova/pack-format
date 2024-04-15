@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.3.14
+*2024-04-15*
 - Updated resource pack format to `31`.
 - Updated data pack format to `39`.
 - Fixed data pack format for 24w12a and 24w13a.
