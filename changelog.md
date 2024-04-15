@@ -2,6 +2,8 @@
 
 ## Next
 - Updated resource pack format to `31`.
+- Updated data pack format to `39`.
+- Fixed data pack format for 24w12a and 24w13a.
 
 ## 1.3.13
 *2024-03-15*
