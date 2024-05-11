@@ -40,7 +40,7 @@ function testPackFormats() {
 
         const input = parts[1] || "[blank]"
         const type = { 'r': 'resource', 'd': 'data', '-': undefined }[parts[2]]
-        const result = parts[3] == 'none' ? undefined : +parts[3]
+        const result = parts[3] === 'none' ? undefined : parts[3] === 'null' ? null : +parts[3]
         testPackFormat(input, type, result)
     }
 }
