@@ -6,6 +6,8 @@
 
 pack-format is a tool for retrieving the `pack_format` of any Minecraft version, including snapshots.
 
+**Updated for: 1.20.6 & 24w18a**
+
 ## About
 
 `pack_format` is a version number used by Minecraft in both resource packs and data packs for labeling compatible versions.

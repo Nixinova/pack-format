@@ -19,7 +19,8 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.20.x': { resource: 15, data: 15 },
     '1.20.2': { resource: 18, data: 18 },
     '1.20.3': { resource: 22, data: 26 },
-    '1.20.5': { resource: 31, data: 39 },
+    '1.20.5': { resource: 32, data: 41 },
+    '1.20.6': { resource: 32, data: 41 },
     '1.21.x': { resource: undefined, data: undefined },
 }
 
@@ -66,6 +67,7 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '24w12a': { resource: 30, data: 36 },
     '24w13a': { resource: 31, data: 37 },
     '24w14a': { resource: 31, data: 38 },
+    '24w18a': { resource: 33, data: 42 },
     [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
 }
 
@@ -75,12 +77,16 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         5: ['combat4', 'combat5'],
         6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
         17: ['1.20.2-pre1'],
+        31: ['1.20.5-pre1', '1.20.5-pre2', '1.20.5-pre3'],
+        32: ['1.20.5-pre4', '1.20.5-rc1', '1.20.5-rc2', '1.20.5-rc3'],
     },
     data: {
         4: ['combat1', 'combat2', 'combat3'],
         5: ['combat4', 'combat5'],
         6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
         39: ['1.20.5-pre1'],
+        40: ['1.20.5-pre2'],
+        41: ['1.20.5-pre3', '1.20.5-pre4', '1.20.5-rc1', '1.20.5-rc2', '1.20.5-rc3'],
     },
 }
 

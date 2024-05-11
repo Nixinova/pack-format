@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+- Updated resource pack format to `32`.
+- Updated data pack format to `42`.
+
 ## 1.3.14
 *2024-04-15*
 - Updated resource pack format to `31`.
