@@ -106,7 +106,16 @@ const LATEST = { resource: maxFormat('resource'), data: maxFormat('data') };
  */
 function getPackFormat(version: string, type: PackType = 'resource'): FormatResult {
     if (!version) return undefined
-    version = version.toString().toLowerCase().trim()
+
+    // Prepare version string for comparison
+    version = version
+        .toString()
+        .trim()
+        .toLowerCase()
+        // Aliasing
+        .replace(/-? *pre[- ]?(release)? */, '-pre')
+        .replace(/ *release candidate */, '-rc')
+        .replace(/ *experimental *snapshot|-es/, '-exp')
 
     // Special //
     for (const format in SPECIAL[type]) {
@@ -125,11 +134,6 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
     if (!version.includes('.')) return undefined
 
     // Release //
-
-    version = version
-        .replace(/-? *pre[- ]?(release)? */, '-pre')
-        .replace(/ *release candidate */, '-rc')
-        .replace(/ *experimental *snapshot|-es/, '-exp')
 
     if (version.includes('-')) {
         // Special cases for specific development versions

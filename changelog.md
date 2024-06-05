@@ -3,6 +3,7 @@
 ## Next
 - Updated resource pack format to `34`.
 - Updated data pack format to `48`.
+- Fixed special case checking not being applied to full version names leading to no result for certain versions.
 
 ## 1.3.15
 *2024-05-12*
