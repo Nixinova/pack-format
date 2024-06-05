@@ -76,20 +76,24 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
 const SPECIAL: Record<PackType, Record<number, string[]>> = {
     resource: {
         4: ['combat1', 'combat2', 'combat3'],
-        5: ['combat4', 'combat5'],
+        5: ['1.16.2-pre', 'combat4', 'combat5'],
         6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
+        7: ['1.18-exp'],
+        13: ['1.19.4-pre'],
         17: ['1.20.2-pre1'],
         31: ['1.20.5-pre1', '1.20.5-pre2', '1.20.5-pre3'],
-        32: ['1.20.5-pre4', '1.20.5-rc1', '1.20.5-rc2', '1.20.5-rc3'],
-        34: ['1.21-pre1', '1.21-pre2', '1.21-pre3'], // NOTE: can remove this line if 1.21-release is also 34
+        32: ['1.20.5-pre4', '1.20.5-rc'],
+        34: ['1.21-pre'], // NOTE: can remove this line if 1.21-release is also 34
     },
     data: {
         4: ['combat1', 'combat2', 'combat3'],
-        5: ['combat4', 'combat5'],
+        5: ['1.16.2-pre', 'combat4', 'combat5'],
         6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
+        7: ['1.18-exp'],
+        12: ['1.19.4-pre'],
         39: ['1.20.5-pre1'],
         40: ['1.20.5-pre2'],
-        41: ['1.20.5-pre3', '1.20.5-pre4', '1.20.5-rc1', '1.20.5-rc2', '1.20.5-rc3'],
+        41: ['1.20.5-pre3', '1.20.5-pre4', '1.20.5-rc'],
         46: ['1.21-pre1'],
         47: ['1.21-pre2'],
         48: ['1.21-pre3'],
@@ -113,13 +117,13 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         .trim()
         .toLowerCase()
         // Aliasing
-        .replace(/-? *pre[- ]?(release)? */, '-pre')
+        .replace(/-? *pre[- ]?(?:release)? */, '-pre')
         .replace(/ *release candidate */, '-rc')
-        .replace(/ *experimental *snapshot|-es/, '-exp')
+        .replace(/ *exp(?:erimental)? *(?:snapshot)?|-es/, '-exp')
 
     // Special //
     for (const format in SPECIAL[type]) {
-        if (SPECIAL[type][format].includes(version)) return +format
+        if (SPECIAL[type][format].find((ver) => version.includes(ver))) return +format
     }
 
     // Snapshot //
@@ -136,11 +140,7 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
     // Release //
 
     if (version.includes('-')) {
-        // Special cases for specific development versions
-        if (version.includes('1.16.2-pre')) return 5
-        if (version.includes('1.18-e')) return 7
-        if (version.includes('1.19.4-pre')) return { data: 12, resource: 13 }[type]
-        // Default to the parent version
+        // Default to the parent version if it doesn't match the special cases from before
         version = version.replace(/-.+$/, '')
     }
 
