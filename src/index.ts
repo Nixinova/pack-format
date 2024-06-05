@@ -21,11 +21,9 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.20.3': { resource: 22, data: 26 },
     '1.20.5': { resource: 32, data: 41 },
     '1.20.6': { resource: 32, data: 41 },
+
     '1.21.x': { resource: undefined, data: undefined },
 }
-
-const d = new Date(), year = d.getFullYear() - 2000, maxWeek = (d.getMonth() + 1) * 5
-const fauxCurrentSnapshot: SnapshotName = `${year}w${maxWeek.toString().padStart(2, '0')}a`
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '13w24a': { resource: 1, data: null },
     '15w31a': { resource: 2, data: null },
@@ -68,7 +66,11 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '24w13a': { resource: 31, data: 37 },
     '24w14a': { resource: 31, data: 38 },
     '24w18a': { resource: 33, data: 42 },
-    [fauxCurrentSnapshot]: { resource: undefined, data: undefined },
+    '24w19a': { resource: 33, data: 43 },
+    '24w20a': { resource: 33, data: 44 },
+    '24w21a': { resource: 34, data: 45 },
+
+    ['24w22a']: { resource: undefined, data: undefined },
 }
 
 const SPECIAL: Record<PackType, Record<number, string[]>> = {
@@ -79,6 +81,7 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         17: ['1.20.2-pre1'],
         31: ['1.20.5-pre1', '1.20.5-pre2', '1.20.5-pre3'],
         32: ['1.20.5-pre4', '1.20.5-rc1', '1.20.5-rc2', '1.20.5-rc3'],
+        34: ['1.21-pre1', '1.21-pre2', '1.21-pre3'], // NOTE: can remove this line if 1.21-release is also 34
     },
     data: {
         4: ['combat1', 'combat2', 'combat3'],
@@ -87,6 +90,9 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         39: ['1.20.5-pre1'],
         40: ['1.20.5-pre2'],
         41: ['1.20.5-pre3', '1.20.5-pre4', '1.20.5-rc1', '1.20.5-rc2', '1.20.5-rc3'],
+        46: ['1.21-pre1'],
+        47: ['1.21-pre2'],
+        48: ['1.21-pre3'],
     },
 }
 
