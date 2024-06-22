@@ -21,8 +21,7 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.20.3': { resource: 22, data: 26 },
     '1.20.5': { resource: 32, data: 41 },
     '1.20.6': { resource: 32, data: 41 },
-
-    '1.21.x': { resource: undefined, data: undefined },
+    '1.21.x': { resource: 34, data: 48 },
 }
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '13w24a': { resource: 1, data: null },
@@ -83,7 +82,6 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         17: ['1.20.2-pre1'],
         31: ['1.20.5-pre1', '1.20.5-pre2', '1.20.5-pre3'],
         32: ['1.20.5-pre4', '1.20.5-rc'],
-        34: ['1.21-pre'], // NOTE: can remove this line if 1.21-release is also 34
     },
     data: {
         4: ['combat1', 'combat2', 'combat3'],
