@@ -121,7 +121,7 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         // Aliasing
         .replace(/-? *pre[- ]?(?:release)? */, '-pre')
         .replace(/ *release candidate */, '-rc')
-        .replace(/ *exp(?:erimental)? *(?:snapshot)?|-es/, '-exp')
+        .replace(/-? *exp(?:erimental)? *(?:snapshot)?|-es/, '-exp')
 
     // Special //
     for (const format in SPECIAL[type]) {
