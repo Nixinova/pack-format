@@ -68,8 +68,19 @@ else if (args.list) {
     }
     else {
         const type = args.data ? 'data' : 'resource'
-        console.log(`Versions for ${type} pack format ${ver}:`)
-        console.log(getVersions(+ver, type))
+        const vers = getVersions(+ver, type)
+
+        const rels = [vers.releases.min, vers.releases.max].filter(x => x)
+        const snaps = [vers.snapshots.min, vers.snapshots.max].filter(x => x)
+        const relText = ['', rels[0], rels.join('–')][[...new Set(rels)].length]
+        const snapsText = ['', snaps[0], snaps.join('–')][[...new Set(snaps)].length]
+        const fullText = relText ? `${relText} (${snapsText})` : `${snapsText}`
+
+        if (snapsText)
+            console.log(`A ${type} pack format of ${ver} is used for ${fullText}`)
+        else
+            console.log(`A ${type} pack format of ${ver} is not used`)
+
     }
 }
 // List the latest pack formats
