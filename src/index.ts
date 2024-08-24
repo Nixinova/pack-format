@@ -24,7 +24,7 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.21.x': { resource: 34, data: 48 },
     '1.22.x': { resource: undefined, data: undefined },
 }
-const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
+const START_SNAPSHOTS: Record<SnapshotName, Record<PackType, FormatResult>> = {
     '13w24a': { resource: 1, data: null },
     '15w31a': { resource: 2, data: null },
     '16w32a': { resource: 3, data: null },
@@ -102,8 +102,8 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
     },
 }
 
-const maxFormat = (type: 'resource' | 'data') => Math.max(...Object.values(START_SNAPSHOTS).map(release => release[type] ?? 0));
-const LATEST = { resource: maxFormat('resource'), data: maxFormat('data') };
+const maxFormat = (type: 'resource' | 'data') => Math.max(...Object.values(START_SNAPSHOTS).map(release => release[type] ?? 0))
+const LATEST = { resource: maxFormat('resource'), data: maxFormat('data') }
 
 /**
  * @param version the version to look up

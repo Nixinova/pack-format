@@ -31,7 +31,7 @@ const packFormat = require('pack-format')
 packFormat('1.14.4') // 4
 packFormat('1.16.2-pre1', 'resource') // 5
 packFormat('20w45a', 'data') // 6
-packFormat.LATEST.data // 39
+packFormat.LATEST.data // 50
 ```
 
 Retrieve a list of versions corresponding to a specific `pack_format`, again optionally specifying resource/data pack version.
