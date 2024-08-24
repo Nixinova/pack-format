@@ -69,9 +69,11 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '24w19a': { resource: 33, data: 43 },
     '24w20a': { resource: 33, data: 44 },
     '24w21a': { resource: 34, data: 45 },
+    '24w33a': { resource: 35, data: 49 },
+    '24w34a': { resource: 36, data: 50 },
 
     // The below should be the last released snapshot + 1 week
-    ['24w22a']: { resource: undefined, data: undefined },
+    ['24w35a']: { resource: undefined, data: undefined },
 }
 
 const SPECIAL: Record<PackType, Record<number, string[]>> = {
