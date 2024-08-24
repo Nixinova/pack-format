@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.3.16
 - Updated resource pack format to `36`.
 - Updated data pack format to `50`.
 - Fixed special case checking not being applied to full version names leading to no result for certain versions.
