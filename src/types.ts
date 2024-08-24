@@ -1,4 +1,4 @@
-export type VersionName = `1.${number}.${number | 'x'}`
+export type VersionName = `1.${number}` | `1.${number}.${number | 'x'}`
 export type SnapshotName = `${number}w${string}${Lowercase<string>}`
 
 export type PackType = 'resource' | 'data'

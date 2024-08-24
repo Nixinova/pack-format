@@ -2,6 +2,12 @@ import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } fro
 
 // Data sets //
 
+const HIGHEST_MINORS: number[] = [
+    /*1.0*/0, /*1.1*/0, /*1.2*/5, /*1.3*/2, /*1.4*/7, /*1.5*/2, /*1.6*/4, /*1.7*/10, /*1.8*/9, /*1.9*/4,
+    /*1.10*/2, /*1.11*/2, /*1.12*/2, /*1.13*/2, /*1.14*/4, /*1.15*/2, /*1.16*/5, /*1.17*/1, /*1.18*/2, /*1.19*/2,
+    /*1.20*/6, /*1.21*/2
+]
+
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.0.x': { resource: null, data: null },
     '1.6.x': { resource: 1, data: null },
@@ -182,7 +188,11 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
     if (!format || format > LATEST[type] || (type === 'data' && format < 4)) return output
 
     const getVersionBelow = function (ver: VersionName, minVer: VersionName): VersionName {
-        const formatVer = ([x, y, z]: Array<string | number>) => [x, y, z].join('.') as VersionName
+        const toHighestMinor = (ver: VersionName): VersionName => {
+            const major = ver.split('.')[1]
+            return ver.replace('.x', '.' + HIGHEST_MINORS[+major]) as VersionName
+        }
+        const formatVer = ([x, y, z]: Array<string | number>) => toHighestMinor([x, y, z].join('.') as VersionName)
         const [minX, minY, minZ] = minVer.split('.')
         const [x, y, z] = ver.split('.')
         // (1.X.a) vs 1.X.b
@@ -202,9 +212,9 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
     const relIndex = startReleases.findIndex(([, data]) => data[type] === format)
     if (relIndex >= 0) {
         const lastWithFormat = startReleases.find(([, obj]) => (obj[type] ?? 0) > format) ?? []
-        const minRelease = startReleases[relIndex][0] as VersionName
+        const minRelease = startReleases[relIndex][0].replace('.x', '') as VersionName
         const maxRelease = getVersionBelow(lastWithFormat[0] as VersionName, minRelease)
-        output.releases.min = minRelease
+        output.releases.min = minRelease as VersionName
         output.releases.max = maxRelease
     }
 

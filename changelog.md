@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Changed output of `getVersions` to replace '`.x`' with the actual game version.
+
 ## 1.3.16
 - Updated resource pack format to `36`.
 - Updated data pack format to `50`.
