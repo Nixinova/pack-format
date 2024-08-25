@@ -104,3 +104,8 @@ else if (ver) {
         console.log(`Resource pack format of ${ver} is ${result}`)
     }
 }
+// No input: print information
+else {
+    console.log(`pack-format: version ${VERSION}.`)
+    console.log('Run pack-format --help for usage.')
+}

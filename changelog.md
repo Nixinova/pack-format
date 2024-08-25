@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next
+- Added basic message when no arguments are given.
 - Changed output of `getVersions` to replace '`.x`' with the actual game version.
 - Changed CLI output of `--list` to present the versions in prose instead of JSON.
 
