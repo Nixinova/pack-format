@@ -4,9 +4,9 @@ const VERSION = require('../package.json').version
 
 const indent = (n: number): string => ' '.repeat(n * 4)
 const log = function (arg: string, desc: string[], example: string): void {
-    console.log(`\n${indent(2)}pack-format ${arg}`)
+    console.log(`\n${indent(1)}pack-format ${arg}`)
     for (let i in desc)
-        console.log(indent(3) + desc[i])
+        console.log(indent(2) + desc[i])
     console.log(`${indent(3)}Example: ${example}`)
 }
 
@@ -24,7 +24,6 @@ const ver = args._[0]
 
 // Print the help message
 if (args.help) {
-    console.log(`\n${indent(1)}pack-format arguments:`)
     log(
         '<version>',
         ['Retrieve the resource and data pack formats of any Minecraft version.'],
@@ -32,12 +31,12 @@ if (args.help) {
     )
     log(
         '(--data|-d) <version>',
-        ['Retrieve the data pack format in particular when applicable.'],
+        ['Retrieve the data pack format only of the version.'],
         'pack-format --data 20w45a',
     )
     log(
         '(--resource|-r) <version>',
-        ['Retrieve the resource pack format in particular when applicable.'],
+        ['Retrieve the resource pack format only of the version.'],
         'pack-format --resource 20w45a',
     )
     log(
