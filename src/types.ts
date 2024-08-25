@@ -7,6 +7,6 @@ export type PackMap = Record<PackType, FormatResult>
 export type FormatResult = number | null | undefined
 
 export interface VersionsResult {
-    releases: { min: VersionName | '', max: VersionName | '' },
-    snapshots: { min: SnapshotName | '', max: SnapshotName | '' },
+    releases: { min: VersionName | null, max: VersionName | null },
+    snapshots: { min: SnapshotName | null, max: SnapshotName | null },
 }

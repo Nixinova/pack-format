@@ -2,6 +2,7 @@
 
 ## Next
 - Added basic message when no arguments are given.
+- Changed output of `getVersions` to return `null` instead of `''` when a version is not present.
 - Changed output of `getVersions` to replace '`.x`' with the actual game version.
 - Changed CLI output of `--list` to present the versions in prose instead of JSON.
 - Changed help message.

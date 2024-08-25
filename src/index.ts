@@ -182,9 +182,9 @@ function getPackFormats(version: string): Record<PackType, FormatResult> {
  * @returns an object containing minimum and maximum applicable release and snapshot versions
  */
 function getVersions(format: number, type: PackType = 'resource'): VersionsResult {
-    let output: VersionsResult = {
-        'releases': { 'min': '', 'max': '' },
-        'snapshots': { 'min': '', 'max': '' },
+    const output: VersionsResult = {
+        'releases': { 'min': null, 'max': null },
+        'snapshots': { 'min': null, 'max': null },
     }
     if (!format || format > LATEST[type] || (type === 'data' && format < 4)) return output
 
