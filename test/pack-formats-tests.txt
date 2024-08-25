@@ -157,6 +157,7 @@ Types:
 === Special cases ===
 
 "combat3" (-) 4
+"combat test 3" (-) 4
 "1.18-exp1" (-) 7
 "1.18-es2" (-) 7
 "1.18 experimental snapshot 3" (-) 7
