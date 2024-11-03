@@ -2,10 +2,14 @@ import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } fro
 
 // Data sets //
 
+/**
+ * The highest minor version for each major version. 
+ * Example: 1.5 has '2', since the highest minor version for 1.5.x was 1.5.2.
+ */ 
 const HIGHEST_MINORS: number[] = [
     /*1.0*/0, /*1.1*/0, /*1.2*/5, /*1.3*/2, /*1.4*/7, /*1.5*/2, /*1.6*/4, /*1.7*/10, /*1.8*/9, /*1.9*/4,
     /*1.10*/2, /*1.11*/2, /*1.12*/2, /*1.13*/2, /*1.14*/4, /*1.15*/2, /*1.16*/5, /*1.17*/1, /*1.18*/2, /*1.19*/2,
-    /*1.20*/6, /*1.21*/2
+    /*1.20*/6, /*1.21*/3,
 ]
 
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
@@ -27,7 +31,8 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.20.3': { resource: 22, data: 26 },
     '1.20.5': { resource: 32, data: 41 },
     '1.20.6': { resource: 32, data: 41 },
-    '1.21.x': { resource: 34, data: 48 },
+    '1.21': { resource: 34, data: 48 },
+    '1.21.2': { resource: 42, data: 57 },
     '1.22.x': { resource: undefined, data: undefined },
 }
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
@@ -77,9 +82,16 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '24w21a': { resource: 34, data: 45 },
     '24w33a': { resource: 35, data: 49 },
     '24w34a': { resource: 36, data: 50 },
+    '24w35a': { resource: 36, data: 51 },
+    '24w36a': { resource: 37, data: 52 },
+    '24w37a': { resource: 38, data: 53 },
+    '24w38a': { resource: 39, data: 54 },
+    '24w39a': { resource: 39, data: 55 },
+    '24w40a': { resource: 40, data: 56 },
+    '24w44a': { resource: 43, data: 58 },
 
     // The below should be the last released snapshot + 1 week
-    ['24w35a']: { resource: undefined, data: undefined },
+    ['24w45a']: { resource: undefined, data: undefined },
 }
 
 const SPECIAL: Record<PackType, Record<number, string[]>> = {
@@ -92,6 +104,8 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         17: ['1.20.2-pre1'],
         31: ['1.20.5-pre1', '1.20.5-pre2', '1.20.5-pre3'],
         32: ['1.20.5-pre4', '1.20.5-rc'],
+        41: ['1.21.2-pre1', '1.21.2-pre2'],
+        42: ['1.21.2-pre3', '1.21.2-pre4', '1.21.2-pre5', '1.21.2-rc'],
     },
     data: {
         4: ['combat1', 'combat2', 'combat3'],
@@ -105,6 +119,7 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         46: ['1.21-pre1'],
         47: ['1.21-pre2'],
         48: ['1.21-pre3'],
+        57: ['1.21.2-pre'],
     },
 }
 
