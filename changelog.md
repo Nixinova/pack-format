@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next
+- Added `release` and `snapshot` to exported object `LATEST` which denotes the latest known released versions.
 - Added basic message when no arguments are given.
 - Changed output of `getVersions` to return `null` instead of `''` when a version is not present.
 - Changed output of `getVersions` to replace '`.x`' with the actual game version.

@@ -3,8 +3,11 @@ import { FormatResult } from './types'
 const VERSION = require('../package.json').version
 
 const indent = (n: number): string => ' '.repeat(n * 4)
-const log = function (arg: string, desc: string[], example: string): void {
-    console.log(`\n${indent(1)}pack-format ${arg}`)
+const log = function ([argFull, argShort]: string[], desc: string[], example: string): void {
+    console.log('\n')
+    console.log(`${indent(1)}${argFull}`)
+    if (argShort)
+        console.log(`${indent(1)}${argShort}`)
     for (let i in desc)
         console.log(indent(2) + desc[i])
     console.log(`${indent(3)}Example: ${example}`)
@@ -25,28 +28,42 @@ const ver = args._[0]
 // Print the help message
 if (args.help) {
     log(
-        '<version>',
+        [
+            '<version>',
+        ],
         ['Retrieve the resource and data pack formats of any Minecraft version.'],
         'pack-format 1.16',
     )
     log(
-        '(--data|-d) <version>',
+        [
+            '--data <version>',
+            '-d <version>',
+        ],
         ['Retrieve the data pack format only of the version.'],
         'pack-format --data 20w45a',
     )
     log(
-        '(--resource|-r) <version>',
+        [
+            '--resource <version>',
+            '-r <version>',
+        ],
         ['Retrieve the resource pack format only of the version.'],
         'pack-format --resource 20w45a',
     )
     log(
-        '(--list|-l) [(--data|-d)|(--resource|-r)] <pack_format>',
+        [
+            '--list [--data|--resource] <pack_format>',
+            '-l [-d|-r] <pack_format>',
+        ],
         ['Retrieve a list of versions attached to a specific pack format.', 'Defaults to --resource.'],
         'pack-format --list --data 6',
     )
     log(
-        '(--latest|-L) [(--data|-d)|(--resource|-r)]',
-        ['Retrieve the latest pack formats.'],
+        [
+            '--latest [--data|--resource]',
+            '-L [-d|-r]',
+        ],
+        ['Retrieve the latest pack formats or version information.'],
         'pack-format --latest --resource',
     )
 }
@@ -90,6 +107,7 @@ else if (args.latest) {
     if (!args.data) {
         console.log(`The latest resource pack format version is ${LATEST.resource}.`)
     }
+    console.log(`Data is known up to release ${LATEST.version} / snapshot ${LATEST.snapshot}.`)
 }
 // Print the pack format of a given version
 else if (ver) {

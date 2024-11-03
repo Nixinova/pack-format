@@ -123,8 +123,18 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
     },
 }
 
+// Find latest release & snapshot version (the one before the placeholder version that has data 'undefined')
+const LATEST_REL = Object.keys(START_RELEASES).reverse().find(ver => !!START_RELEASES[ver as VersionName].data)
+const LATEST_SNAP = Object.keys(START_SNAPSHOTS).reverse().find(ver => !!START_SNAPSHOTS[ver as VersionName].data)
+
 const maxFormat = (type: 'resource' | 'data') => Math.max(...Object.values(START_SNAPSHOTS).map(release => release[type] ?? 0));
-const LATEST = { resource: maxFormat('resource'), data: maxFormat('data') };
+
+const LATEST = {
+    resource: maxFormat('resource'),
+    data: maxFormat('data'),
+    version: LATEST_REL,
+    snapshot: LATEST_SNAP,
+}
 
 /**
  * @param version the version to look up
