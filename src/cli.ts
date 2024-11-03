@@ -2,15 +2,17 @@ import { getPackFormat, getPackFormats, getVersions, LATEST } from './index'
 import { FormatResult } from './types'
 const VERSION = require('../package.json').version
 
-const indent = (n: number): string => ' '.repeat(n * 4)
+const indent = (n: number): string => ' '.repeat(n * 2)
 const log = function ([argFull, argShort]: string[], desc: string[], example: string): void {
-    console.log('\n')
-    console.log(`${indent(1)}${argFull}`)
+    console.log()
+    console.log(`${indent(2)}${argFull}`)
     if (argShort)
-        console.log(`${indent(1)}${argShort}`)
+        console.log(`${indent(2)}${argShort}`)
+    console.log()
     for (let i in desc)
-        console.log(indent(2) + desc[i])
-    console.log(`${indent(3)}Example: ${example}`)
+        console.log(indent(2) + indent(2) + desc[i])
+    console.log(indent(2) + indent(3) + 'Example: ' + example)
+    console.log()
 }
 
 const rawArgs = process.argv.slice(2)
@@ -27,6 +29,8 @@ const ver = args._[0]
 
 // Print the help message
 if (args.help) {
+    console.log()
+    console.log(`\n${indent(1)}pack-format\n`)
     log(
         [
             '<version>',

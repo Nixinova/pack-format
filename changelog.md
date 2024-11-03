@@ -1,12 +1,12 @@
 # Changelog
 
-## Next
+## 1.4.0
 - Added `release` and `snapshot` to exported object `LATEST` which denotes the latest known released versions.
-- Added basic message when no arguments are given.
 - Changed output of `getVersions` to return `null` instead of `''` when a version is not present.
 - Changed output of `getVersions` to replace '`.x`' with the actual game version.
 - Changed CLI output of `--list` to present the versions in prose instead of JSON.
-- Changed help message.
+- Changed CLI output to display a basic message when no arguments are given.
+- Changed CLI help message.
 
 ## 1.3.16
 - Updated resource pack format to `36`.
