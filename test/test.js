@@ -34,19 +34,19 @@ function testVersions([input, type], expected) {
 function testPackFormats() {
     const formatsTests = fs.readFileSync(path.join(__dirname, 'pack-formats-tests.txt'), { 'encoding': 'utf-8' })
     for (const line of formatsTests.split('\n')) {
-        const parts = line.match(/^"(.*)" \((r|d|r,d|-)\) (\w+|\w+,\w+)/)
+        const parts = line.match(/^"(.*)" \((r|d|r,d|-)\) (\w+(?:,\w+)?)/)
         if (!parts)
             continue
 
         const getAns = ans => ans === 'none' ? undefined : ans === 'null' ? null : +ans
         const [, lineName, lineType, lineAns] = parts
         const input = lineName || "[blank]"
-        const type = { 'r': 'resource', 'd': 'data', 'b': 'both', '-': undefined }[lineType]
+        const type = { 'r': 'resource', 'd': 'data', 'r,d': 'both', '-': undefined }[lineType]
         if (type === 'both') {
             // multiple: data AND resource
             const [resourceAns, dataAns] = lineAns.split(',')
-            testPackFormat(input, type, getAns(resourceAns))
-            testPackFormat(input, type, getAns(dataAns))
+            testPackFormat(input, 'resource', getAns(resourceAns))
+            testPackFormat(input, 'data', getAns(dataAns))
         }
         else {
             // either data OR resource
