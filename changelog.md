@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+- Updated resource pack format to `49`.
+- Updated data pack format to `64`.
+
 ## 1.4.0
 - Added `release` and `snapshot` to exported object `LATEST` which denotes the latest known released versions.
 - Changed output of `getVersions` to return `null` instead of `''` when a version is not present.
@@ -7,6 +11,8 @@
 - Changed CLI output of `--list` to present the versions in prose instead of JSON.
 - Changed CLI output to display a basic message when no arguments are given.
 - Changed CLI help message.
+- Updated resource pack format to `43`.
+- Updated data pack format to `58`.
 
 ## 1.3.16
 - Updated resource pack format to `36`.

@@ -33,6 +33,8 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.20.6': { resource: 32, data: 41 },
     '1.21': { resource: 34, data: 48 },
     '1.21.2': { resource: 42, data: 57 },
+    '1.21.4': { resource: 46, data: 61 },
+    '1.21.5': { resource: undefined, data: undefined },
     '1.22.x': { resource: undefined, data: undefined },
 }
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
@@ -89,9 +91,14 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '24w39a': { resource: 39, data: 55 },
     '24w40a': { resource: 40, data: 56 },
     '24w44a': { resource: 43, data: 58 },
+    '24w45a': { resource: 44, data: 59 },
+    '24w46a': { resource: 45, data: 60 },
+    '25w02a': { resource: 47, data: 62 },
+    '25w03a': { resource: 48, data: 63 },
+    '25w04a': { resource: 49, data: 64 },
 
     // The below should be the last released snapshot + 1 week
-    ['24w45a']: { resource: undefined, data: undefined },
+    ['25w05a']: { resource: undefined, data: undefined },
 }
 
 const SPECIAL: Record<PackType, Record<number, string[]>> = {
@@ -120,6 +127,7 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         47: ['1.21-pre2'],
         48: ['1.21-pre3'],
         57: ['1.21.2-pre'],
+        60: ['1.21.4-pre1'],
     },
 }
 
