@@ -9,7 +9,7 @@ import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } fro
 const HIGHEST_MINORS: number[] = [
     /*1.0*/0, /*1.1*/0, /*1.2*/5, /*1.3*/2, /*1.4*/7, /*1.5*/2, /*1.6*/4, /*1.7*/10, /*1.8*/9, /*1.9*/4,
     /*1.10*/2, /*1.11*/2, /*1.12*/2, /*1.13*/2, /*1.14*/4, /*1.15*/2, /*1.16*/5, /*1.17*/1, /*1.18*/2, /*1.19*/2,
-    /*1.20*/6, /*1.21*/3,
+    /*1.20*/6, /*1.21*/5,
 ]
 
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
@@ -34,6 +34,7 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.21': { resource: 34, data: 48 },
     '1.21.2': { resource: 42, data: 57 },
     '1.21.4': { resource: 46, data: 61 },
+    // future versions: return undefined
     '1.21.5': { resource: undefined, data: undefined },
     '1.22.x': { resource: undefined, data: undefined },
 }

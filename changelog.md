@@ -1,10 +1,13 @@
 # Changelog
 
-## Next
+## 1.4.1
+*2025-01-27*
+- Changed future minor releases to have undefined pack formats instead of having earlier releases' formats fall through.
 - Updated resource pack format to `49`.
 - Updated data pack format to `64`.
 
 ## 1.4.0
+*2024-11-03*
 - Added `release` and `snapshot` to exported object `LATEST` which denotes the latest known released versions.
 - Changed output of `getVersions` to return `null` instead of `''` when a version is not present.
 - Changed output of `getVersions` to replace '`.x`' with the actual game version.
@@ -15,6 +18,7 @@
 - Updated data pack format to `58`.
 
 ## 1.3.16
+*2024-08-24*
 - Updated resource pack format to `36`.
 - Updated data pack format to `50`.
 - Fixed special case checking not being applied to full version names leading to no result for certain versions.

@@ -68,5 +68,5 @@ Resource pack format of 1.16.2-pre1 is 5
 Data pack format of 20w45a is 6
 
 > pack-format --list --resource 3
-{ releases: { min: '1.11.x', max: '1.12.x' }, snapshots: { min: '16w32a', max: '17w47a' } }
+A resource pack format of 3 is used for 1.11–1.12.2 (16w32a–17w47a)
 ```
