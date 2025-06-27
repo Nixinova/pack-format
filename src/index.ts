@@ -156,7 +156,7 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
 const LATEST_REL = Object.keys(START_RELEASES).reverse().find(ver => !!START_RELEASES[ver as VersionName].data)
 const LATEST_SNAP = Object.keys(START_SNAPSHOTS).reverse().find(ver => !!START_SNAPSHOTS[ver as VersionName].data)
 
-const maxFormat = (type: 'resource' | 'data') => Math.max(...Object.values(START_SNAPSHOTS).map(release => release[type] ?? 0));
+const maxFormat = (type: 'resource' | 'data') => Math.max(...[...Object.values(START_SNAPSHOTS), ...Object.values(START_RELEASES)].map(release => release[type] ?? 0));
 
 const LATEST = {
     resource: maxFormat('resource'),

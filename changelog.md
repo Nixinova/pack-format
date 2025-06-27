@@ -1,5 +1,8 @@
 # Changelog
 
+## Next:
+- Fixed returned latest pack formats not checking release versions.
+
 ## 1.4.1
 *2025-01-27*
 - Changed future minor releases to have undefined pack formats instead of having earlier releases' formats fall through.
