@@ -34,8 +34,11 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.21': { resource: 34, data: 48 },
     '1.21.2': { resource: 42, data: 57 },
     '1.21.4': { resource: 46, data: 61 },
+    '1.21.5': { resource: 55, data: 71 },
+    '1.21.6': { resource: 63, data: 80 },
+    '1.21.7': { resource: 64, data: 81 },
     // future versions: return undefined
-    '1.21.5': { resource: undefined, data: undefined },
+    '1.21.8': { resource: undefined, data: undefined },
     '1.22.x': { resource: undefined, data: undefined },
 }
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
@@ -97,9 +100,22 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '25w02a': { resource: 47, data: 62 },
     '25w03a': { resource: 48, data: 63 },
     '25w04a': { resource: 49, data: 64 },
+    '25w05a': { resource: 50, data: 65 },
+    '25w06a': { resource: 51, data: 66 },
+    '25w07a': { resource: 52, data: 67 },
+    '25w08a': { resource: 53, data: 68 },
+    '25w09a': { resource: 53, data: 69 },
+    '25w10a': { resource: 54, data: 70 },
+    '25w15a': { resource: 56, data: 72 },
+    '25w16a': { resource: 57, data: 73 },
+    '25w17a': { resource: 58, data: 74 },
+    '25w18a': { resource: 59, data: 75 },
+    '25w19a': { resource: 60, data: 76 },
+    '25w20a': { resource: 61, data: 77 },
+    '25w21a': { resource: 62, data: 78 },
 
     // The below should be the last released snapshot + 1 week
-    ['25w05a']: { resource: undefined, data: undefined },
+    ['25w26a']: { resource: undefined, data: undefined },
 }
 
 const SPECIAL: Record<PackType, Record<number, string[]>> = {
@@ -114,6 +130,7 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         32: ['1.20.5-pre4', '1.20.5-rc'],
         41: ['1.21.2-pre1', '1.21.2-pre2'],
         42: ['1.21.2-pre3', '1.21.2-pre4', '1.21.2-pre5', '1.21.2-rc'],
+        63: ['1.21.7-rc1'],
     },
     data: {
         4: ['combat1', 'combat2', 'combat3'],
@@ -129,6 +146,9 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         48: ['1.21-pre3'],
         57: ['1.21.2-pre'],
         60: ['1.21.4-pre1'],
+        70: ['1.21.5-pre1'],
+        79: ['1.21.6-pre1', '1.21.6-pre2'],
+        80: ['1.21.7-rc1'],
     },
 }
 
