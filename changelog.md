@@ -1,7 +1,10 @@
 # Changelog
 
-## Next:
+## 1.4.2
+*2025-06-27*
 - Fixed returned latest pack formats not checking release versions.
+- Updated resource pack format to `64`.
+- Updated data pack format to `81`.
 
 ## 1.4.1
 *2025-01-27*
