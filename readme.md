@@ -6,7 +6,7 @@
 
 pack-format is a tool for retrieving the `pack_format` of any Minecraft version, including snapshots.
 
-**Updated for: 1.21.7**
+**Updated till: 1.21.8/25w33a**
 
 ## About
 
@@ -31,8 +31,8 @@ const packFormat = require('pack-format')
 packFormat('1.14.4') // 4
 packFormat('1.16.2-pre1', 'resource') // 5
 packFormat('20w45a', 'data') // 6
-packFormat.LATEST.data // 81
-packFormat.LATEST.version // 1.21.7
+packFormat.LATEST.data // 83.1
+packFormat.LATEST.version // 1.21.8
 ```
 
 Retrieve a list of versions corresponding to a specific `pack_format`, again optionally specifying resource/data pack version.
@@ -41,6 +41,7 @@ Retrieve a list of versions corresponding to a specific `pack_format`, again opt
 const {getVersions} = require('pack-format')
 getVersions(3) // { releases: { min: '1.11.x', max: '1.12.x' }, snapshots: { min: '16w32a', max: '17w47a' } }
 getVersions(6, 'data') // { releases: { min: '1.15.x', max: '1.16.1' }, snapshots: { min: '20w06a', max: '20w44a' } }
+getVersions(64, 'resource') // { releases: { min: '1.21.7', max: '1.21.8' }, snapshots: { min: null, max: null } }
 ```
 
 ### Command line
