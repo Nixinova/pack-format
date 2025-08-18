@@ -65,5 +65,6 @@ testVersions([7, 'resource'], { releases: { min: '1.17', max: '1.17.1' }, snapsh
 testVersions([10, 'data'], { releases: { min: '1.19', max: '1.19.3' }, snapshots: { min: '22w11a', max: '23w02a' } })
 testVersions([11, 'resource'], { releases: { min: null, max: null }, snapshots: { min: '22w42a', max: '22w44a' } })
 testVersions([15, 'data'], { releases: { min: '1.20', max: '1.20.1' }, snapshots: { min: '23w18a', max: '23w30a' } })
+testVersions([64, 'resource'], { releases: { min: '1.21.7', max: '1.21.8' }, snapshots: { min: null, max: null } })
 
 console.log(`\nRan ${total} tests | ${passed} passed | ${failed} failed`)

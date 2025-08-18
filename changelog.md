@@ -4,6 +4,7 @@
 - Changed CLI parsing to support decimal pack formats.
 - Updated resource pack format to `65.2`.
 - Updated data pack format to `83.0`.
+- Fixed use of `--list` on recent pack formats.
 
 ## 1.4.2
 *2025-06-27*

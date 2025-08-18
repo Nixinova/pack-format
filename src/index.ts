@@ -270,11 +270,11 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
     const startReleases = Object.entries(START_RELEASES)
     const relIndex = startReleases.findIndex(([, data]) => data[type] === format)
     if (relIndex >= 0) {
-        const lastWithFormat = startReleases.find(([, obj]) => (obj[type] ?? 0) > format) ?? []
+        const lastWithFormat = startReleases.find(([, obj]) => (obj[type] ?? 0) > format)?.[0]
         const minRelease = startReleases[relIndex][0].replace('.x', '') as VersionName
-        const maxRelease = getVersionBelow(lastWithFormat[0] as VersionName, minRelease)
+        const maxRelease = lastWithFormat ? getVersionBelow(lastWithFormat as VersionName, minRelease) : LATEST_REL
         output.releases.min = minRelease as VersionName
-        output.releases.max = maxRelease
+        output.releases.max = maxRelease as VersionName
     }
 
     // Min and max snapshots
