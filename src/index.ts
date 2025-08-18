@@ -9,7 +9,7 @@ import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } fro
 const HIGHEST_MINORS: number[] = [
     /*1.0*/0, /*1.1*/0, /*1.2*/5, /*1.3*/2, /*1.4*/7, /*1.5*/2, /*1.6*/4, /*1.7*/10, /*1.8*/9, /*1.9*/4,
     /*1.10*/2, /*1.11*/2, /*1.12*/2, /*1.13*/2, /*1.14*/4, /*1.15*/2, /*1.16*/5, /*1.17*/1, /*1.18*/2, /*1.19*/2,
-    /*1.20*/6, /*1.21*/5,
+    /*1.20*/6, /*1.21*/8,
 ]
 
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
@@ -37,8 +37,9 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.21.5': { resource: 55, data: 71 },
     '1.21.6': { resource: 63, data: 80 },
     '1.21.7': { resource: 64, data: 81 },
+    '1.21.8': { resource: 64, data: 81 },
     // future versions: return undefined
-    '1.21.8': { resource: undefined, data: undefined },
+    '1.21.9': { resource: undefined, data: undefined },
     '1.22.x': { resource: undefined, data: undefined },
 }
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
@@ -113,9 +114,12 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '25w19a': { resource: 60, data: 76 },
     '25w20a': { resource: 61, data: 77 },
     '25w21a': { resource: 62, data: 78 },
+    '25w31a': { resource: 65.0, data: 82.0 },
+    '25w32a': { resource: 65.1, data: 83.0 },
+    '25w33a': { resource: 65.2, data: 83.1 },
 
     // The below should be the last released snapshot + 1 week
-    ['25w26a']: { resource: undefined, data: undefined },
+    ['25w34a']: { resource: undefined, data: undefined },
 }
 
 const SPECIAL: Record<PackType, Record<number, string[]>> = {

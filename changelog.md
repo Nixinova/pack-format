@@ -1,5 +1,10 @@
 # Changelog
 
+## Next
+- Changed CLI parsing to support decimal pack formats.
+- Updated resource pack format to `65.2`.
+- Updated data pack format to `83.0`.
+
 ## 1.4.2
 *2025-06-27*
 - Fixed returned latest pack formats not checking release versions.

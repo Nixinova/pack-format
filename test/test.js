@@ -34,7 +34,7 @@ function testVersions([input, type], expected) {
 function testPackFormats() {
     const formatsTests = fs.readFileSync(path.join(__dirname, 'pack-formats-tests.txt'), { 'encoding': 'utf-8' })
     for (const line of formatsTests.split('\n')) {
-        const parts = line.match(/^"(.*)" \((r|d|r,d|-)\) (\w+(?:,\w+)?)/)
+        const parts = line.match(/^"(.*)" \((r|d|r,d|-)\) ([\w.]+(?:,[\w.]+)?)/)
         if (!parts)
             continue
 
