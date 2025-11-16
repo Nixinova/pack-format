@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+- Updated resource pack format to `74.0`.
+- Updated data pack format to `93.1`.
+
 ## 1.4.3
 *2025-08-18*
 - Changed CLI parsing to support decimal pack formats.

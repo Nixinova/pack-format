@@ -38,8 +38,10 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.21.6': { resource: 63, data: 80 },
     '1.21.7': { resource: 64, data: 81 },
     '1.21.8': { resource: 64, data: 81 },
+    '1.21.9': { resource: 69, data: 88 },
+    '1.21.10': { resource: 69, data: 88 },
     // future versions: return undefined
-    '1.21.9': { resource: undefined, data: undefined },
+    '1.21.11': { resource: undefined, data: undefined },
     '1.22.x': { resource: undefined, data: undefined },
 }
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
@@ -117,9 +119,19 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '25w31a': { resource: 65.0, data: 82.0 },
     '25w32a': { resource: 65.1, data: 83.0 },
     '25w33a': { resource: 65.2, data: 83.1 },
+    "25w34a": { resource: 66.0, data: 84.0 },
+    "25w35a": { resource: 67.0, data: 85.0 },
+    "25w36a": { resource: 68.0, data: 86.0 },
+    "25w37a": { resource: 69.0, data: 87.0 },
+    "25w41a": { resource: 70.0, data: 89.0 },
+    "25w42a": { resource: 70.1, data: 90.0 },
+    "25w43a": { resource: 71.0, data: 91.0 },
+    "25w44a": { resource: 72.0, data: 92.0 },
+    "25w45a": { resource: 73.0, data: 93.0 },
+    "25w46a": { resource: 74.0, data: 93.1 },
 
     // The below should be the last released snapshot + 1 week
-    ['25w34a']: { resource: undefined, data: undefined },
+    ['25w47a']: { resource: undefined, data: undefined },
 }
 
 const SPECIAL: Record<PackType, Record<number, string[]>> = {
@@ -153,6 +165,7 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         70: ['1.21.5-pre1'],
         79: ['1.21.6-pre1', '1.21.6-pre2'],
         80: ['1.21.7-rc1'],
+        87.1: ['1.21.9-pre1'],
     },
 }
 
