@@ -1,8 +1,9 @@
 # Changelog
 
 ## Next
-- Updated resource pack format to `74.0`.
-- Updated data pack format to `93.1`.
+- Updated to support new version formats.
+- Updated resource pack format to `87.0`.
+- Updated data pack format to `106.0`.
 
 ## 1.4.3
 *2025-08-18*

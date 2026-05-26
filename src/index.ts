@@ -1,15 +1,16 @@
-import { VersionName, SnapshotName, PackType, FormatResult, VersionsResult } from './types'
+import { FormatResult, PackType, SnapshotName, VersionName, VersionsResult } from './types';
 
 // Data sets //
 
 /**
  * The highest minor version for each major version. 
  * Example: 1.5 has '2', since the highest minor version for 1.5.x was 1.5.2.
- */ 
+ */
 const HIGHEST_MINORS: number[] = [
     /*1.0*/0, /*1.1*/0, /*1.2*/5, /*1.3*/2, /*1.4*/7, /*1.5*/2, /*1.6*/4, /*1.7*/10, /*1.8*/9, /*1.9*/4,
     /*1.10*/2, /*1.11*/2, /*1.12*/2, /*1.13*/2, /*1.14*/4, /*1.15*/2, /*1.16*/5, /*1.17*/1, /*1.18*/2, /*1.19*/2,
-    /*1.20*/6, /*1.21*/8,
+    /*1.20*/6, /*1.21*/11,
+    /*26*/1,
 ]
 
 const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
@@ -40,9 +41,11 @@ const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
     '1.21.8': { resource: 64, data: 81 },
     '1.21.9': { resource: 69, data: 88 },
     '1.21.10': { resource: 69, data: 88 },
+    '1.21.11': { resource: 75, data: 94.1 },
+    '1.22.x': { resource: undefined, data: undefined }, // end of 1.x versioning
+    '26.1': { resource: 84, data: 101.1 },
     // future versions: return undefined
-    '1.21.11': { resource: undefined, data: undefined },
-    '1.22.x': { resource: undefined, data: undefined },
+    '26.2': { resource: undefined, data: undefined },
 }
 const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     '13w24a': { resource: 1, data: null },
@@ -129,11 +132,9 @@ const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
     "25w44a": { resource: 72.0, data: 92.0 },
     "25w45a": { resource: 73.0, data: 93.0 },
     "25w46a": { resource: 74.0, data: 93.1 },
-
-    // The below should be the last released snapshot + 1 week
-    ['25w47a']: { resource: undefined, data: undefined },
+    // snapshots are no longer named like this starting in 2026
+    ['26w00a']: { resource: undefined, data: undefined },
 }
-
 const SPECIAL: Record<PackType, Record<number, string[]>> = {
     resource: {
         4: ['combat1', 'combat2', 'combat3'],
@@ -147,6 +148,22 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         41: ['1.21.2-pre1', '1.21.2-pre2'],
         42: ['1.21.2-pre3', '1.21.2-pre4', '1.21.2-pre5', '1.21.2-rc'],
         63: ['1.21.7-rc1'],
+        76: ['26.1-snapshot-1'],
+        77: ['26.1-snapshot-2'],
+        78: ['26.1-snapshot-3'],
+        78.1: ['26.1-snapshot-4'],
+        79: ['26.1-snapshot-5'],
+        80: ['26.1-snapshot-6'],
+        81: ['26.1-snapshot-7'],
+        81.1: ['26.1-snapshot-8', '26.1-snapshot-9'],
+        82: ['26.1-snapshot-10'],
+        83: ['26.1-snapshot-11'],
+        84: ['26.1-pre', '26.1-rc', '26.1.2-rc'],
+        85: ['26.2-snapshot-1', '26.2-snapshot-2'],
+        86: ['26.2-snapshot-3'],
+        86.1: ['26.2-snapshot-4'],
+        86.2: ['26.2-snapshot-5', '26.2-snapshot-6'],
+        87: ['26.2-snapshot-7', '26.2-snapshot-8'],
     },
     data: {
         4: ['combat1', 'combat2', 'combat3'],
@@ -166,12 +183,33 @@ const SPECIAL: Record<PackType, Record<number, string[]>> = {
         79: ['1.21.6-pre1', '1.21.6-pre2'],
         80: ['1.21.7-rc1'],
         87.1: ['1.21.9-pre1'],
+        94: ['1.21.11-pre1', '1.21.11-pre2', '1.21.11-pre3'],
+        94.1: ['1.21.11-pre4', '1.21.11-rc'],
+        95: ['26.1-snapshot-1'],
+        96: ['26.1-snapshot-2'],
+        97: ['26.1-snapshot-3'],
+        97.1: ['26.1-snapshot-4'],
+        98: ['26.1-snapshot-5'],
+        99: ['26.1-snapshot-6'],
+        99.1: ['26.1-snapshot-7'],
+        99.2: ['26.1-snapshot-8', '26.1-snapshot-9'],
+        99.3: ['26.1-snapshot-10'],
+        100: ['26.1-snapshot-11'],
+        101: ['26.1-pre1', '26.1-pre2'],
+        101.1: ['26.1-pre3', '26.1-rc', '26.1.2-rc'],
+        101.2: ['26.2-snapshot-1', '26.2-snapshot-2'],
+        102: ['26.2-snapshot-3'],
+        103: ['26.2-snapshot-4'],
+        104: ['26.2-snapshot-5'],
+        105: ['26.2-snapshot-6'],
+        105.1: ['26.2-snapshot-7'],
+        106: ['26.2-snapshot-8'],
     },
 }
 
 // Find latest release & snapshot version (the one before the placeholder version that has data 'undefined')
-const LATEST_REL = Object.keys(START_RELEASES).reverse().find(ver => !!START_RELEASES[ver as VersionName].data)
-const LATEST_SNAP = Object.keys(START_SNAPSHOTS).reverse().find(ver => !!START_SNAPSHOTS[ver as VersionName].data)
+const LATEST_REL = Object.keys(START_RELEASES).reverse().filter(ver => !!START_RELEASES[ver as VersionName].data)[0]
+const LATEST_SNAP = Object.keys(START_SNAPSHOTS).reverse().filter(ver => !!START_SNAPSHOTS[ver as VersionName].data)[0]
 
 const maxFormat = (type: 'resource' | 'data') => Math.max(...[...Object.values(START_SNAPSHOTS), ...Object.values(START_RELEASES)].map(release => release[type] ?? 0));
 
@@ -196,6 +234,7 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         .trim()
         .toLowerCase()
         // Aliasing
+        .replace(/ snapshot /i, '-snapshot-')
         .replace(/-? *pre[- ]?(?:release)? */, '-pre')
         .replace(/ *release candidate */, '-rc')
         .replace(/-? *exp(?:erimental)? *(?:snapshot)?|-es/, '-exp')
@@ -203,10 +242,11 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
 
     // Special //
     for (const format in SPECIAL[type]) {
-        if (SPECIAL[type][format].find((ver) => version.includes(ver))) return +format
+        if (SPECIAL[type][format].find((ver) => /\d$/.test(ver) ? version === ver : version.startsWith(ver)))
+            return +format
     }
 
-    // Snapshot //
+    // Legacy snapshot //
     if (/^\d{2}w\d{2}[a-z]?$/.test(version)) {
         const getId = (snap: string) => +snap.replace(/[^\d]/g, '')
         for (const testSnap of Object.keys(START_SNAPSHOTS).reverse()) {
@@ -226,8 +266,8 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
 
     for (const testVer of Object.keys(START_RELEASES).reverse()) {
         const getId = (ver: string): number => {
-            const [, major, minor] = ver.split('.')
-            return +major.padStart(3, '0') + +(minor ?? 0) / 100
+            const [era, major, minor] = ver.split('.').map(Number)
+            return era * 1e4 + major * 1e2 + (minor ?? 0)
         }
         if (getId(testVer.replace('.x', '')) > getId(version)) continue
         return START_RELEASES[testVer as VersionName][type]
