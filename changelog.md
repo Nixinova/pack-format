@@ -1,6 +1,7 @@
 # Changelog
 
-## Next
+## 1.4.4
+*2026-05-27*
 - Updated to support new version formats.
 - Updated resource pack format to `87.0`.
 - Updated data pack format to `106.0`.
