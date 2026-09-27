@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Removed npm install restriction.
+
 ## 1.4.4
 *2026-05-27*
 - Updated to support new version formats.

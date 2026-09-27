@@ -23,8 +23,7 @@
         "dist/"
     ],
     "engines": {
-        "node": ">=12",
-        "npm": "<9"
+        "node": ">=12"
     },
     "repository": {
         "type": "git",
