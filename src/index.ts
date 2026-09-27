@@ -10,8 +10,8 @@ const isDevVer = (version: VersionName) => version.includes('-') || version.incl
 const isRelease = (version: VersionName) => !isDevVer(version) && !version.includes('combat')
 
 // Find latest release & snapshot version
-const LATEST_REL = verData.reverse().find(({ version }) => isRelease(version))
-const LATEST_SNAP = verData.reverse().find(({ version }) => isDevVer(version))
+const LATEST_REL = verData.slice().reverse().find(({ version }) => isRelease(version))!.version
+const LATEST_SNAP = verData.slice().reverse().find(({ version }) => isDevVer(version))!.version
 const maxFormat = (type: 'resource' | 'data') => Math.max(
     ...verData.map(x => x.verData?.[type]).filter(x => x != null) as number[]
 )
