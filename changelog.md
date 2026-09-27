@@ -1,8 +1,11 @@
 # Changelog
 
-## Next
-- Changed versions list behaviour to include pre-releases and release candidates as "snapshots".
-- Removed npm install restriction.
+## 1.4.5
+*2026-09-27*
+- Fixed versions list output excluding pre-releases and release candidates from `snapshots` object.
+- Fixed erroneous npm install restriction.
+- Update resource pack format to `98.0`.
+- Updated data pack format to `122.0`.
 
 ## 1.4.4
 *2026-05-27*
