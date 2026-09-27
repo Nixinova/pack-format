@@ -6,12 +6,13 @@
 
 pack-format is a tool for retrieving the `pack_format` of any Minecraft version, including snapshots.
 
-**Updated up to: 26.1.2 / 26.2 Snapshot 8**
+**Updated up to: 26.3 / 26.4 Snapshot 1**
 
 ## About
 
 `pack_format` is a version number used by Minecraft in both resource packs and data packs for labeling compatible versions.
-It was added in Minecraft version 1.6, and as such using this tool on any version prior to that will just return `undefined`.
+It was added in Minecraft version 1.6, and as such using this tool on any version prior to that will just return `null`.
+Any future versions not yet known about will have a pack format of `undefined`.
 
 ## Install
 
