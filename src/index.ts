@@ -13,7 +13,6 @@ const special = parseJson<Record<PackType, Record<number, string[]>>>(_special)
 // Find latest release & snapshot version (the one before the placeholder version that has data 'undefined')
 const LATEST_REL = Object.keys(startReleases).reverse().filter(ver => !!startReleases[ver as VersionName].data)[0]
 const LATEST_SNAP = Object.keys(startSnapshots).reverse().filter(ver => !!startSnapshots[ver as VersionName].data)[0]
-
 const maxFormat = (type: 'resource' | 'data') => Math.max(...[...Object.values(startSnapshots), ...Object.values(startReleases)].map(release => release[type] ?? 0))
 
 const LATEST = {
@@ -37,7 +36,7 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         .trim()
         .toLowerCase()
         // Aliasing
-        .replace(/ snapshot /i, '-snapshot-')
+        .replace(/-? *snap(shot)-? */i, '-snapshot-')
         .replace(/-? *pre[- ]?(?:release)? */, '-pre')
         .replace(/ *release candidate */, '-rc')
         .replace(/-? *exp(?:erimental)? *(?:snapshot)?|-es/, '-exp')

@@ -28,7 +28,9 @@
   "1.21.10": { "resource": 69, "data": 88 },
   "1.21.11": { "resource": 75, "data": 94.1 },
   "1.22.x": {}, "//": "end of 1.x versioning",
-  "26.1": { "resource": 84, "data": 101.1 },
+  "26.1": { "resource": 84.0, "data": 101.1 },
+  "26.2": { "resource": 88.0, "data": 107.1 },
+  "26.3": { "resource": 97.1, "data": 121.0 },
   "//": "future versions: return undefined",
-  "26.2": {}
+  "26.4": {}
 }
