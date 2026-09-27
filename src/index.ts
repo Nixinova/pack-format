@@ -1,217 +1,20 @@
-import { FormatResult, PackType, SnapshotName, VersionName, VersionsResult } from './types';
+import _highestMinors from './data/highestMinors.json'
+import _special from './data/special.json'
+import _startReleases from './data/startReleases.json'
+import _startSnapshots from './data/startSnapshots.json'
+import parseJson from './parseJson'
+import { FormatResult, PackType, SnapshotName, VersionName, VersionsResult } from './types'
 
-// Data sets //
-
-/**
- * The highest minor version for each major version. 
- * Example: 1.5 has '2', since the highest minor version for 1.5.x was 1.5.2.
- */
-const HIGHEST_MINORS: number[] = [
-    /*1.0*/0, /*1.1*/0, /*1.2*/5, /*1.3*/2, /*1.4*/7, /*1.5*/2, /*1.6*/4, /*1.7*/10, /*1.8*/9, /*1.9*/4,
-    /*1.10*/2, /*1.11*/2, /*1.12*/2, /*1.13*/2, /*1.14*/4, /*1.15*/2, /*1.16*/5, /*1.17*/1, /*1.18*/2, /*1.19*/2,
-    /*1.20*/6, /*1.21*/11,
-    /*26*/1,
-]
-
-const START_RELEASES: Record<VersionName, Record<PackType, FormatResult>> = {
-    '1.0.x': { resource: null, data: null },
-    '1.6.x': { resource: 1, data: null },
-    '1.9.x': { resource: 2, data: null },
-    '1.11.x': { resource: 3, data: null },
-    '1.13.x': { resource: 4, data: 4 },
-    '1.15.x': { resource: 5, data: 5 },
-    '1.16.2': { resource: 6, data: 6 },
-    '1.17.x': { resource: 7, data: 7 },
-    '1.18.x': { resource: 8, data: 8 },
-    '1.18.2': { resource: 8, data: 9 },
-    '1.19.x': { resource: 9, data: 10 },
-    '1.19.3': { resource: 12, data: 10 },
-    '1.19.4': { resource: 12, data: 12 },
-    '1.20.x': { resource: 15, data: 15 },
-    '1.20.2': { resource: 18, data: 18 },
-    '1.20.3': { resource: 22, data: 26 },
-    '1.20.5': { resource: 32, data: 41 },
-    '1.20.6': { resource: 32, data: 41 },
-    '1.21': { resource: 34, data: 48 },
-    '1.21.2': { resource: 42, data: 57 },
-    '1.21.4': { resource: 46, data: 61 },
-    '1.21.5': { resource: 55, data: 71 },
-    '1.21.6': { resource: 63, data: 80 },
-    '1.21.7': { resource: 64, data: 81 },
-    '1.21.8': { resource: 64, data: 81 },
-    '1.21.9': { resource: 69, data: 88 },
-    '1.21.10': { resource: 69, data: 88 },
-    '1.21.11': { resource: 75, data: 94.1 },
-    '1.22.x': { resource: undefined, data: undefined }, // end of 1.x versioning
-    '26.1': { resource: 84, data: 101.1 },
-    // future versions: return undefined
-    '26.2': { resource: undefined, data: undefined },
-}
-const START_SNAPSHOTS: Record<string, Record<PackType, FormatResult>> = {
-    '13w24a': { resource: 1, data: null },
-    '15w31a': { resource: 2, data: null },
-    '16w32a': { resource: 3, data: null },
-    '17w48a': { resource: 4, data: 4 },
-    '20w06a': { resource: 5, data: 5 },
-    '20w45a': { resource: 7, data: 6 },
-    '20w46a': { resource: 7, data: 7 },
-    '21w37a': { resource: 7, data: 8 },
-    '21w39a': { resource: 8, data: 8 },
-    '22w11a': { resource: 9, data: 10 },
-    '22w42a': { resource: 11, data: 10 },
-    '22w45a': { resource: 12, data: 10 },
-    '23w03a': { resource: 12, data: 11 },
-    '23w06a': { resource: 12, data: 12 },
-    '23w12a': { resource: 13, data: 13 },
-    '23w14a': { resource: 14, data: 13 },
-    '23w16a': { resource: 14, data: 14 },
-    '23w17a': { resource: 15, data: 14 },
-    '23w18a': { resource: 15, data: 15 },
-    '23w31a': { resource: 16, data: 16 },
-    '23w32a': { resource: 17, data: 17 },
-    '23w40a': { resource: 18, data: 19 },
-    '23w41a': { resource: 18, data: 20 },
-    '23w42a': { resource: 19, data: 21 },
-    '23w43a': { resource: 20, data: 22 },
-    '23w44a': { resource: 20, data: 23 },
-    '23w45a': { resource: 21, data: 24 },
-    '23w46a': { resource: 21, data: 25 },
-    '23w51a': { resource: 22, data: 27 },
-    '24w03a': { resource: 24, data: 28 },
-    '24w04a': { resource: 24, data: 29 },
-    '24w05a': { resource: 25, data: 30 },
-    '24w06a': { resource: 26, data: 31 },
-    '24w07a': { resource: 26, data: 32 },
-    '24w09a': { resource: 28, data: 33 },
-    '24w10a': { resource: 28, data: 34 },
-    '24w11a': { resource: 29, data: 35 },
-    '24w12a': { resource: 30, data: 36 },
-    '24w13a': { resource: 31, data: 37 },
-    '24w14a': { resource: 31, data: 38 },
-    '24w18a': { resource: 33, data: 42 },
-    '24w19a': { resource: 33, data: 43 },
-    '24w20a': { resource: 33, data: 44 },
-    '24w21a': { resource: 34, data: 45 },
-    '24w33a': { resource: 35, data: 49 },
-    '24w34a': { resource: 36, data: 50 },
-    '24w35a': { resource: 36, data: 51 },
-    '24w36a': { resource: 37, data: 52 },
-    '24w37a': { resource: 38, data: 53 },
-    '24w38a': { resource: 39, data: 54 },
-    '24w39a': { resource: 39, data: 55 },
-    '24w40a': { resource: 40, data: 56 },
-    '24w44a': { resource: 43, data: 58 },
-    '24w45a': { resource: 44, data: 59 },
-    '24w46a': { resource: 45, data: 60 },
-    '25w02a': { resource: 47, data: 62 },
-    '25w03a': { resource: 48, data: 63 },
-    '25w04a': { resource: 49, data: 64 },
-    '25w05a': { resource: 50, data: 65 },
-    '25w06a': { resource: 51, data: 66 },
-    '25w07a': { resource: 52, data: 67 },
-    '25w08a': { resource: 53, data: 68 },
-    '25w09a': { resource: 53, data: 69 },
-    '25w10a': { resource: 54, data: 70 },
-    '25w15a': { resource: 56, data: 72 },
-    '25w16a': { resource: 57, data: 73 },
-    '25w17a': { resource: 58, data: 74 },
-    '25w18a': { resource: 59, data: 75 },
-    '25w19a': { resource: 60, data: 76 },
-    '25w20a': { resource: 61, data: 77 },
-    '25w21a': { resource: 62, data: 78 },
-    '25w31a': { resource: 65.0, data: 82.0 },
-    '25w32a': { resource: 65.1, data: 83.0 },
-    '25w33a': { resource: 65.2, data: 83.1 },
-    "25w34a": { resource: 66.0, data: 84.0 },
-    "25w35a": { resource: 67.0, data: 85.0 },
-    "25w36a": { resource: 68.0, data: 86.0 },
-    "25w37a": { resource: 69.0, data: 87.0 },
-    "25w41a": { resource: 70.0, data: 89.0 },
-    "25w42a": { resource: 70.1, data: 90.0 },
-    "25w43a": { resource: 71.0, data: 91.0 },
-    "25w44a": { resource: 72.0, data: 92.0 },
-    "25w45a": { resource: 73.0, data: 93.0 },
-    "25w46a": { resource: 74.0, data: 93.1 },
-    // snapshots are no longer named like this starting in 2026
-    ['26w00a']: { resource: undefined, data: undefined },
-}
-const SPECIAL: Record<PackType, Record<number, string[]>> = {
-    resource: {
-        4: ['combat1', 'combat2', 'combat3'],
-        5: ['1.16.2-pre', 'combat4', 'combat5'],
-        6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
-        7: ['1.18-exp'],
-        13: ['1.19.4-pre'],
-        17: ['1.20.2-pre1'],
-        31: ['1.20.5-pre1', '1.20.5-pre2', '1.20.5-pre3'],
-        32: ['1.20.5-pre4', '1.20.5-rc'],
-        41: ['1.21.2-pre1', '1.21.2-pre2'],
-        42: ['1.21.2-pre3', '1.21.2-pre4', '1.21.2-pre5', '1.21.2-rc'],
-        63: ['1.21.7-rc1'],
-        76: ['26.1-snapshot-1'],
-        77: ['26.1-snapshot-2'],
-        78: ['26.1-snapshot-3'],
-        78.1: ['26.1-snapshot-4'],
-        79: ['26.1-snapshot-5'],
-        80: ['26.1-snapshot-6'],
-        81: ['26.1-snapshot-7'],
-        81.1: ['26.1-snapshot-8', '26.1-snapshot-9'],
-        82: ['26.1-snapshot-10'],
-        83: ['26.1-snapshot-11'],
-        84: ['26.1-pre', '26.1-rc', '26.1.2-rc'],
-        85: ['26.2-snapshot-1', '26.2-snapshot-2'],
-        86: ['26.2-snapshot-3'],
-        86.1: ['26.2-snapshot-4'],
-        86.2: ['26.2-snapshot-5', '26.2-snapshot-6'],
-        87: ['26.2-snapshot-7', '26.2-snapshot-8'],
-    },
-    data: {
-        4: ['combat1', 'combat2', 'combat3'],
-        5: ['1.16.2-pre', 'combat4', 'combat5'],
-        6: ['combat6', 'combat7a', 'combat7b', 'combat8a', 'combat8b', 'combat8c'],
-        7: ['1.18-exp'],
-        12: ['1.19.4-pre'],
-        39: ['1.20.5-pre1'],
-        40: ['1.20.5-pre2'],
-        41: ['1.20.5-pre3', '1.20.5-pre4', '1.20.5-rc'],
-        46: ['1.21-pre1'],
-        47: ['1.21-pre2'],
-        48: ['1.21-pre3'],
-        57: ['1.21.2-pre'],
-        60: ['1.21.4-pre1'],
-        70: ['1.21.5-pre1'],
-        79: ['1.21.6-pre1', '1.21.6-pre2'],
-        80: ['1.21.7-rc1'],
-        87.1: ['1.21.9-pre1'],
-        94: ['1.21.11-pre1', '1.21.11-pre2', '1.21.11-pre3'],
-        94.1: ['1.21.11-pre4', '1.21.11-rc'],
-        95: ['26.1-snapshot-1'],
-        96: ['26.1-snapshot-2'],
-        97: ['26.1-snapshot-3'],
-        97.1: ['26.1-snapshot-4'],
-        98: ['26.1-snapshot-5'],
-        99: ['26.1-snapshot-6'],
-        99.1: ['26.1-snapshot-7'],
-        99.2: ['26.1-snapshot-8', '26.1-snapshot-9'],
-        99.3: ['26.1-snapshot-10'],
-        100: ['26.1-snapshot-11'],
-        101: ['26.1-pre1', '26.1-pre2'],
-        101.1: ['26.1-pre3', '26.1-rc', '26.1.2-rc'],
-        101.2: ['26.2-snapshot-1', '26.2-snapshot-2'],
-        102: ['26.2-snapshot-3'],
-        103: ['26.2-snapshot-4'],
-        104: ['26.2-snapshot-5'],
-        105: ['26.2-snapshot-6'],
-        105.1: ['26.2-snapshot-7'],
-        106: ['26.2-snapshot-8'],
-    },
-}
+const highestMinors = parseJson<Record<string, number>>(_highestMinors)
+const startReleases = parseJson<Record<VersionName, Record<PackType, FormatResult>>>(_startReleases)
+const startSnapshots = parseJson<Record<string, Record<PackType, FormatResult>>>(_startSnapshots)
+const special = parseJson<Record<PackType, Record<number, string[]>>>(_special)
 
 // Find latest release & snapshot version (the one before the placeholder version that has data 'undefined')
-const LATEST_REL = Object.keys(START_RELEASES).reverse().filter(ver => !!START_RELEASES[ver as VersionName].data)[0]
-const LATEST_SNAP = Object.keys(START_SNAPSHOTS).reverse().filter(ver => !!START_SNAPSHOTS[ver as VersionName].data)[0]
+const LATEST_REL = Object.keys(startReleases).reverse().filter(ver => !!startReleases[ver as VersionName].data)[0]
+const LATEST_SNAP = Object.keys(startSnapshots).reverse().filter(ver => !!startSnapshots[ver as VersionName].data)[0]
 
-const maxFormat = (type: 'resource' | 'data') => Math.max(...[...Object.values(START_SNAPSHOTS), ...Object.values(START_RELEASES)].map(release => release[type] ?? 0));
+const maxFormat = (type: 'resource' | 'data') => Math.max(...[...Object.values(startSnapshots), ...Object.values(startReleases)].map(release => release[type] ?? 0))
 
 const LATEST = {
     resource: maxFormat('resource'),
@@ -241,17 +44,17 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         .replace(/^c(?:ombat)? *t(?:est)? */, 'combat')
 
     // Special //
-    for (const format in SPECIAL[type]) {
-        if (SPECIAL[type][format].find((ver) => /\d$/.test(ver) ? version === ver : version.startsWith(ver)))
+    for (const format in special[type]) {
+        if (special[type][format].find((ver) => /\d$/.test(ver) ? version === ver : version.startsWith(ver)))
             return +format
     }
 
     // Legacy snapshot //
     if (/^\d{2}w\d{2}[a-z]?$/.test(version)) {
         const getId = (snap: string) => +snap.replace(/[^\d]/g, '')
-        for (const testSnap of Object.keys(START_SNAPSHOTS).reverse()) {
+        for (const testSnap of Object.keys(startSnapshots).reverse()) {
             if (getId(version) < getId(testSnap)) continue
-            return START_SNAPSHOTS[testSnap as SnapshotName][type]
+            return startSnapshots[testSnap as SnapshotName][type]
         }
         return undefined
     }
@@ -264,13 +67,13 @@ function getPackFormat(version: string, type: PackType = 'resource'): FormatResu
         version = version.replace(/-.+$/, '')
     }
 
-    for (const testVer of Object.keys(START_RELEASES).reverse()) {
+    for (const testVer of Object.keys(startReleases).reverse()) {
         const getId = (ver: string): number => {
             const [era, major, minor] = ver.split('.').map(Number)
             return era * 1e4 + major * 1e2 + (minor ?? 0)
         }
         if (getId(testVer.replace('.x', '')) > getId(version)) continue
-        return START_RELEASES[testVer as VersionName][type]
+        return startReleases[testVer as VersionName][type]
     }
 
     return undefined
@@ -301,8 +104,9 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
 
     const getVersionBelow = function (ver: VersionName, minVer: VersionName): VersionName {
         const toHighestMinor = (ver: VersionName): VersionName => {
-            const major = ver.split('.')[1]
-            return ver.replace('.x', '.' + HIGHEST_MINORS[+major]) as VersionName
+            const [major, minor] = ver.split('.')
+            const prefix = major === '1' ? major + '.' + minor : major
+            return ver.replace('.x', '.' + highestMinors[prefix as keyof typeof highestMinors]) as VersionName
         }
         const formatVer = ([x, y, z]: Array<string | number>) => toHighestMinor([x, y, z].join('.') as VersionName)
         const [minX, minY, minZ] = minVer.split('.')
@@ -320,18 +124,18 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
     }
 
     // Min and max releases
-    const startReleases = Object.entries(START_RELEASES)
-    const relIndex = startReleases.findIndex(([, data]) => data[type] === format)
+    const startRels = Object.entries(startReleases)
+    const relIndex = startRels.findIndex(([, data]) => data[type] === format)
     if (relIndex >= 0) {
-        const lastWithFormat = startReleases.find(([, obj]) => (obj[type] ?? 0) > format)?.[0]
-        const minRelease = startReleases[relIndex][0].replace('.x', '') as VersionName
+        const lastWithFormat = startRels.find(([, obj]) => (obj[type] ?? 0) > format)?.[0]
+        const minRelease = startRels[relIndex][0].replace('.x', '') as VersionName
         const maxRelease = lastWithFormat ? getVersionBelow(lastWithFormat as VersionName, minRelease) : LATEST_REL
         output.releases.min = minRelease as VersionName
         output.releases.max = maxRelease as VersionName
     }
 
     // Min and max snapshots
-    const startSnaps = Object.entries(START_SNAPSHOTS)
+    const startSnaps = Object.entries(startSnapshots)
     const snapIndices = startSnaps.flatMap((item) => item[1][type] === format ? startSnaps.indexOf(item) : [])
     if (snapIndices.length) {
         const minIndex = snapIndices[0]
