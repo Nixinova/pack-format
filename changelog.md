@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next
+- Changed versions list behaviour to include pre-releases and release candidates as "snapshots".
 - Removed npm install restriction.
 
 ## 1.4.4

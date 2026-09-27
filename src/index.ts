@@ -6,14 +6,12 @@ const verData = Object.entries(formatData).map(([version, verData]) => ({
     version: version as VersionName,
     verData,
 }))
-const isSnapshot = (version: VersionName) => version.includes('-snap') || version.includes('w')
-const isDevVer = (version: VersionName) => isSnapshot(version) || version.includes('-')
+const isDevVer = (version: VersionName) => version.includes('-') || version.includes('w')
 const isRelease = (version: VersionName) => !isDevVer(version) && !version.includes('combat')
-
 
 // Find latest release & snapshot version
 const LATEST_REL = verData.reverse().find(({ version }) => isRelease(version))
-const LATEST_SNAP = verData.reverse().find(({ version }) => isSnapshot(version))
+const LATEST_SNAP = verData.reverse().find(({ version }) => isDevVer(version))
 const maxFormat = (type: 'resource' | 'data') => Math.max(
     ...verData.map(x => x.verData?.[type]).filter(x => x != null) as number[]
 )
@@ -80,7 +78,7 @@ function getVersions(format: number, type: PackType = 'resource'): VersionsResul
 
     const matchingData = verData.filter(({ verData }) => verData?.[type] === format)
     const releases = matchingData.filter(({ version }) => isRelease(version))
-    const devVers = matchingData.filter(({ version }) => isSnapshot(version))
+    const devVers = matchingData.filter(({ version }) => isDevVer(version))
     output.releases.min = releases[0]?.version ?? null
     output.releases.max = releases[releases.length - 1]?.version ?? null
     output.snapshots.min = devVers[0]?.version ?? null
