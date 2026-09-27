@@ -1,4 +1,4 @@
-import { getPackFormat, getPackFormats, getVersions, LATEST } from './index'
+import { getPackFormat, getVersions, LATEST } from './index'
 import { FormatResult } from './types'
 const VERSION = require('../package.json').version
 
@@ -91,7 +91,7 @@ else if (args.list) {
         const snaps = [vers.snapshots.min, vers.snapshots.max].filter(x => x)
         const relText = ['', rels[0], rels.join('–')][[...new Set(rels)].length]
         const snapsText = ['', snaps[0], snaps.join('–')][[...new Set(snaps)].length]
-        const fullText = relText && snapsText ? `${relText} (${snapsText})` : (relText ?? snapsText)
+        const fullText = relText && snapsText ? `${relText} (${snapsText})` : snapsText ?? relText
 
         if (fullText)
             console.log(`A ${type} pack format of ${ver} is used for ${fullText}`)

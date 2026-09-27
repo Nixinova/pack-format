@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Fixed list versions for pack format output erroneously ignoring snapshots.
+
 ## 1.4.5
 *2026-09-27*
 - Fixed versions list output excluding pre-releases and release candidates from `snapshots` object.
